@@ -10,6 +10,40 @@ const sidebar_menu = [
         path: '/',
         title: 'Summary',
     },
+
+    {
+        id: 3,
+        icon: ProductIcon,
+        path: '/AllVehicles',
+        title: 'All vehicles',
+    },
+
+ {
+        id: 6,
+        icon: UserIcon,
+        path: '/Profile',
+        title: 'My account',
+    },
+
+ {
+        id: 8,
+        icon: UserIcon,
+        path: '/UpdateVehicle',
+        title: 'Update Vehicle',
+    },
+
+  {
+        id: 10,
+        icon: UserIcon,
+        path: '/ChangePassword',
+        title: 'Change Password',
+    },
+    {
+        id: 1,
+        icon: DashboardIcon,
+        path: '/',
+        title: 'Summary',
+    },
     {
         id: 2,
         icon: ShippingIcon,

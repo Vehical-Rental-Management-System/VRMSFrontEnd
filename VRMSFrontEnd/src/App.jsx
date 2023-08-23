@@ -17,13 +17,13 @@ import PaymentForm from "./pages/PaymentForm";
 import AllVehicles from './pages/AllVehicles';
 import AvailableVehicles from './pages/AvailableVehicles';
 import ReservedVehicles from './pages/ReservedVehicles';
-import Users from './pages/RetrieveUsers';
+import Users from './pages/Users';
 import SideBar from './components/Sidebar';
 import sidebar_menu from './constants/sidebar-menu';
-import UserProfile from "./pages/RetrieveUsers/UserProfile";
-import ViewProfile from "./pages/RetrieveUsers/ViewProfile";
-import ChangePassword from "./pages/RetrieveUsers/ChangePassword";
-import MyBookings from "./pages/RetrieveUsers/MyBookings";
+import UserProfile from "./pages/Users/UserProfile";
+import ViewProfile from "./pages/Users/ViewProfile";
+import ChangePassword from "./pages/Users/ChangePassword";
+import MyBookings from "./pages/Users/MyBookings";
 
 function App() {
 
