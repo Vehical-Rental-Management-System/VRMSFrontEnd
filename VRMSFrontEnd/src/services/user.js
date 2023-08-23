@@ -7,9 +7,9 @@ export async function registerUser(
   email,
   password,
   age,
-  mobile,
+  mobileNo,
   aadharNo,
-  licenceNo
+  licenseNo
 ) {
   const url = createUrl('/user/register')
   const body = {
@@ -18,12 +18,12 @@ export async function registerUser(
     email,
     password,
     age,
-    mobile,
+    mobileNo,
     aadharNo,
-    licenceNo
+    licenseNo
 }
 
-  // wait till axios is making the api call and getting response from server
+  //wait till axios is making the api call and getting response from server
   try {
     const response = await axios.post(url, body)
     log(response.data)
@@ -53,3 +53,66 @@ export async function loginUser(email, password) {
 }
 
 
+
+export async function getAllServiceLocation() {
+    const url = createUrl('/service_location')
+    
+  
+    //wait till axios is making the api call and getting response from server
+    try {
+      const response = await axios.get(url)
+      log(response.data)
+      return response.data
+    } catch (ex) {
+      log(ex)
+      return null
+    }
+  }
+
+
+  export async function getAllVehiclesByServiceLocation(locationId) {
+    const url = createUrl('/vehicles/by_location/'+locationId)
+    
+  
+    //wait till axios is making the api call and getting response from server
+    try {
+      const response = await axios.get(url)
+      
+      return response.data
+    } catch (ex) {
+      log(ex)
+      return null
+    }
+  }
+
+
+  export async function getAllVehicleBrands() {
+    const url = createUrl('/vehicles/vehicle_brands')
+    
+  
+    //wait till axios is making the api call and getting response from server
+    try {
+      const response = await axios.get(url)
+      
+      return response.data
+    } catch (ex) {
+      log(ex)
+      return null
+    }
+  }
+
+
+  export async function getAllVehicleTypes() {
+    const url = createUrl('/vehicles/vehicle_types')
+    
+  
+    //wait till axios is making the api call and getting response from server
+    try {
+      const response = await axios.get(url)
+      
+      return response.data
+    } catch (ex) {
+      log(ex)
+      return null
+    }
+  }
