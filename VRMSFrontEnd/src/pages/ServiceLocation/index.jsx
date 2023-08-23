@@ -1,33 +1,44 @@
 import React, {useState, useEffect} from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
+import { toast } from 'react-toastify'
 
-import allServiceProviders from '../../constants/ServiceProviders';
 import {calculateRange, sliceData} from '../../utils/table-pagination';
+import { getServiceLocations } from '../../services/adminService';
 
 import '../styles.css';
 
 
-function AllVehicles () {
+function ServiceLocations () {
     const [search, setSearch] = useState('');
-    const [ServiceProviders, setServiceProviders] = useState(allServiceProviders);
+    const [serviceLocations, setServiceLocations] = useState([]);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
 
     useEffect(() => {
-        setPagination(calculateRange(allServiceProviders, 5));
-        setServiceProviders(sliceData(allServiceProviders, page, 5));
+        setPagination(calculateRange(serviceLocations, 5));
+        setServiceLocations(sliceData(serviceLocations, page, 5));
+        loadAllServiceLocations();
     }, []);
+
+    const loadAllServiceLocations = async () => {
+        const response = await getServiceLocations()
+        if (response['status'] === 200) {
+            setServiceLocations(response['data'])
+        } else {
+          toast.error('Error while calling get /product api')
+        }
+      }
 
     // Search
     const __handleSearch = (event) => {
         setSearch(event.target.value);
         if (event.target.value !== '') {
-            let search_results = ServiceProviders.filter((item) =>
+            let search_results = serviceLocations.filter((item) =>
                 item.first_name.toLowerCase().includes(search.toLowerCase()) ||
                 item.last_name.toLowerCase().includes(search.toLowerCase()) ||
                 item.product.toLowerCase().includes(search.toLowerCase())
             );
-            setServiceProviders(search_results);
+            setServiceLocations(search_results);
         }
         else {
             __handleChangePage(1);
@@ -37,17 +48,15 @@ function AllVehicles () {
     // Change Page 
     const __handleChangePage = (new_page) => {
         setPage(new_page);
-        setServiceProviders(sliceData(allServiceProviders, new_page, 5));
+        setServiceLocations(sliceData(serviceLocations, new_page, 5));
     }
 
     return(
         <div className='dashboard-content'>
-            <DashboardHeader
-                btnText="Add Vehicle" />
 
             <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
-                    <h2>Vehicles List</h2>
+                    <h2>Service Location List</h2>
                     <div className='dashboard-content-search'>
                         <input
                             type='text'
@@ -60,41 +69,29 @@ function AllVehicles () {
 
                 <table>
                     <thead>
-                        <th>Vehicle No</th>
-                        <th>Fuel Tyoe</th>
-                        <th>Passing Year</th>
-                        <th>Type</th>
-                        <th>Brand</th>
-                        <th>Location</th>
-                        <th>Remove</th>
-                        <th>Update</th>
+                    <th>Add Line1</th>
+                    <th>Add Line2</th>
+                    <th>City</th>
+                    <th>Zip Code</th>
+                    <th>Remove</th>
                     </thead>
 
-                    {ServiceProviders.length !== 0 ?
+                    {serviceLocations.length !== 0 ?
                         <tbody>
-                            {ServiceProviders.map((ServiceProvider, index) => (
+                            {serviceLocations.map((serviceLocation, index) => (
                                 <tr key={index}>
-                                    <td><span>{ServiceProvider.id}</span></td>
-                                    <td><span>{ServiceProvider.email}</span></td>
-                                    <td>
-                                    <span>{ServiceProvider.Phone}</span>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <span>{ServiceProvider.first_name} {ServiceProvider.last_name}</span>
-                                        </div>
-                                    </td>
-                                    <td><span>{ServiceProvider.Address}</span></td>
-                                    <td><span>{ServiceProvider.GST_No}</span></td>
+                                   <td><span>{serviceLocation.adrLine1}</span></td>
+                                    <td><span>{serviceLocation.adrLine2}</span></td>
+                                    <td><span>{serviceLocation.city}</span></td>
+                                    <td><span>{serviceLocation.zipCode}</span></td>
                                     <td> <button className='btn btn-Info'>Remove</button> </td>
-                                    <td> <button className='btn btn-Info'>Update</button> </td>
                                 </tr>
                             ))}
                         </tbody>
                     : null}
                 </table>
 
-                {ServiceProviders.length !== 0 ?
+                {serviceLocations.length !== 0 ?
                     <div className='dashboard-content-footer'>
                         {pagination.map((item, index) => (
                             <span 
@@ -115,4 +112,4 @@ function AllVehicles () {
     )
 }
 
-export default AllVehicles;
+export default ServiceLocations;

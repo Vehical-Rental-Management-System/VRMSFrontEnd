@@ -11,9 +11,14 @@ import Register from "../pages/SignUp";
 import UpdateProfile from "../pages/UpdateProfile";
 import PaymentForm from "../pages/PaymentForm";
 import { ToastContainer } from "react-toastify";
-import AllVehicles from '../pages/AllVehicles';
 import AvailableVehicles from '../pages/AvailableVehicles';
 import ReservedVehicles from '../pages/ReservedVehicles';
+import AddVehicle from '../pages/AddVehicle';
+import ServiceLocations from "../pages/ServiceLocation";
+import AddServiceLocation from "../pages/AddServiceLocation";
+import Bookings from "../pages/Bookings";
+import BookingsWithFeedback from "../pages/BookingsWithFeedback";
+import WebsiteFeedback from "../pages/WebsiteFeedback";
 import Users from '../pages/Users';
 import SideBar from '../components/Sidebar';
 import sidebar_menu from '../constants/sidebar-menu';
@@ -44,13 +49,17 @@ const Routers = () => {
                   
                         <Route path="*" element={<div></div>} />
                         <Route exact path="/" element={<div></div>} />
-                        <Route exact path="/AllVehicles" element={< AllVehicles />} />
                         <Route exact path="/AvailableVehicles" element={< AvailableVehicles />} />
                         <Route exact path="/ReservedVehicles" element={< ReservedVehicles />} />
+                        <Route exact path="/AddVehicle" element={< AddVehicle />} />
                         <Route exact path="/Users" element={< Users />} />
+                        <Route exact path="/ServiceLocations" element={< ServiceLocations />} />
+                        <Route exact path="/AddServiceLocation" element={< AddServiceLocation />} />
+                        <Route exact path="/Bookings" element={< Bookings />} />
+                        <Route exact path="/BookingsWithFeedback" element={< BookingsWithFeedback />} />
+                        <Route exact path="/WebsiteFeedback" element={< WebsiteFeedback />} />
                         <Route exact path="/locations" element={<div></div>} />
                         <Route exact path="/profile" element={<div></div>} />
-                        {/* <Route exact path="/addServiceProvider" element={ <addServiceProvider /> }/> */}
                   
 
 

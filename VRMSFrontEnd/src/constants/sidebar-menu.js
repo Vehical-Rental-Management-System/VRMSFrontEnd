@@ -17,12 +17,6 @@ const sidebar_menu = [
         title: 'Users',
     },
     {
-        id: 3,
-        icon: ProductIcon,
-        path: '/AllVehicles',
-        title: 'All vehicles',
-    },
-    {
         id: 4,
         icon: ProductIcon,
         path: '/AvailableVehicles',
@@ -34,13 +28,45 @@ const sidebar_menu = [
         path: '/ReservedVehicles',
         title: 'Reserved vehicles',
     },
-    
+
+    {
+        id: 5,
+        icon: ProductIcon,
+        path: '/AddVehicle',
+        title: 'Add Vehicle',
+    },
+
     {
         id: 6,
-        icon: UserIcon,
-        path: '/profile',
-        title: 'My account',
-    }
+        icon: DashboardIcon,
+        path: '/ServiceLocations',
+        title: 'Service Locations',
+    }, 
+    {
+        id: 7,
+        icon: ShippingIcon,
+        path: '/Bookings',
+        title: 'Bookings',
+    }, 
+    {
+        id: 8,
+        icon: ShippingIcon,
+        path: '/BookingsWithFeedback',
+        title: 'Bookings With Feedback',
+    },
+    {
+        id: 9,
+        icon: ShippingIcon,
+        path: '/WebsiteFeedback',
+        title: 'Website Feedback',
+    },
+    {
+        id: 10,
+        icon: DashboardIcon,
+        path: '/AddServiceLocation',
+        title: 'Add Service Location',
+    }, 
+
 ]
 
 export default sidebar_menu;

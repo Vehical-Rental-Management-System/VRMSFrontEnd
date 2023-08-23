@@ -1,28 +1,29 @@
 import React, {useState, useEffect} from 'react';
-
+import DashboardHeader from '../../components/DashboardHeader';
 import { toast } from 'react-toastify'
+
 import {calculateRange, sliceData} from '../../utils/table-pagination';
-import { getReservedVehicles } from '../../services/adminService';
+import { getAllBookingsWithFeedback } from '../../services/adminService';
 
 import '../styles.css';
 
 
-function ReservedVehicles () {
+function BookingsWithFeedback () {
     const [search, setSearch] = useState('');
-    const [reservedVehicles, setReservedVehicles] = useState([]);
+    const [bookingsWithFeedback, setBookingsWithFeedback] = useState([]);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
 
     useEffect(() => {
-        setPagination(calculateRange(reservedVehicles, 5));
-        setReservedVehicles(sliceData(reservedVehicles, page, 5));
-        loadReservedVehicle()
+        setPagination(calculateRange(bookingsWithFeedback, 5));
+        setBookingsWithFeedback(sliceData(bookingsWithFeedback, page, 5));
+        loadAllBookingsWithFeedback();
     }, []);
 
-    const loadReservedVehicle = async () => {
-        const response = await getReservedVehicles()
+    const loadAllBookingsWithFeedback = async () => {
+        const response = await getAllBookingsWithFeedback()
         if (response['status'] === 200) {
-            setReservedVehicles(response['data'])
+            setBookingsWithFeedback(response['data'])
         } else {
           toast.error('Error while calling get /product api')
         }
@@ -32,12 +33,12 @@ function ReservedVehicles () {
     const __handleSearch = (event) => {
         setSearch(event.target.value);
         if (event.target.value !== '') {
-            let search_results = reservedVehicles.filter((item) =>
+            let search_results = bookingsWithFeedback.filter((item) =>
                 item.first_name.toLowerCase().includes(search.toLowerCase()) ||
                 item.last_name.toLowerCase().includes(search.toLowerCase()) ||
                 item.product.toLowerCase().includes(search.toLowerCase())
             );
-            setReservedVehicles(search_results);
+            setBookingsWithFeedback(search_results);
         }
         else {
             __handleChangePage(1);
@@ -47,15 +48,14 @@ function ReservedVehicles () {
     // Change Page 
     const __handleChangePage = (new_page) => {
         setPage(new_page);
-        setReservedVehicles(sliceData(reservedVehicles, new_page, 5));
+        setBookingsWithFeedback(sliceData(bookingsWithFeedback, new_page, 5));
     }
 
     return(
         <div className='dashboard-content'>
-
             <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
-                    <h2>Reserved Vehicles List</h2>
+                    <h2>Bookings With Feedback</h2>
                     <div className='dashboard-content-search'>
                         <input
                             type='text'
@@ -67,32 +67,36 @@ function ReservedVehicles () {
                 </div>
 
                 <table>
-                <thead>
-                    <th>Vehicle No</th>
-                    <th>Fuel Type</th>
-                    <th>Passing Year</th>
-                    <th>Type</th>
-                    <th>Brand Name</th>
-                    <th>Location</th>
+                    <thead>
+                    <th>Book Date</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>User Email</th>
+                    <th>Feedback</th>
+                    <th>Rating</th>
                     </thead>
-
-                    {reservedVehicles.length !== 0 ?
+                    
+                    {bookingsWithFeedback.length !== 0 ?
                         <tbody>
-                            {reservedVehicles.map((reservedVehicle, index) => (
+                            {bookingsWithFeedback.map((bookingWithFeedback, index) => (
                                 <tr key={index}>
-                                    <td><span>{reservedVehicle.vehicleNo}</span></td>
-                                    <td><span>{reservedVehicle.fuelType}</span></td>
-                                    <td><span>{reservedVehicle.passingYear}</span></td>
-                                    <td><span>{reservedVehicle.type.type}</span></td>
-                                    <td><span>{reservedVehicle.brand.brandName}</span></td>
-                                    <td><span>{reservedVehicle.location.adrLine1}</span></td>
+                                   <td><span>{bookingWithFeedback.bookDate}</span></td>
+                                   <td><span>{bookingWithFeedback.startDate}</span></td>
+                                   <td><span>{bookingWithFeedback.endDate}</span></td>
+                                    <td><span>{bookingWithFeedback.amount}</span></td>
+                                    <td><span>{bookingWithFeedback.status}</span></td>
+                                    <td><span>{bookingWithFeedback.user.email}</span></td>
+                                    <td><span>{bookingWithFeedback.bookingFeedback}</span></td>
+                                    <td><span>{bookingWithFeedback.rating}</span></td>
                                 </tr>
                             ))}
                         </tbody>
                     : null}
                 </table>
 
-                {reservedVehicles.length !== 0 ?
+                {bookingsWithFeedback.length !== 0 ?
                     <div className='dashboard-content-footer'>
                         {pagination.map((item, index) => (
                             <span 
@@ -113,4 +117,4 @@ function ReservedVehicles () {
     )
 }
 
-export default ReservedVehicles;
+export default BookingsWithFeedback;

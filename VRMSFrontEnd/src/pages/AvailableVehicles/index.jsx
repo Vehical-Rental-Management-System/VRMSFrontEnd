@@ -1,32 +1,43 @@
 import React, {useState, useEffect} from 'react';
 
-import allServiceProviders from '../../constants/ServiceProviders';
+import { toast } from 'react-toastify'
 import {calculateRange, sliceData} from '../../utils/table-pagination';
+import { getAvailableVehicles } from '../../services/adminService';
 
 import '../styles.css';
 
 
-function AvailableVihicles () {
+function AvailableVehicles () {
     const [search, setSearch] = useState('');
-    const [ServiceProviders, setServiceProviders] = useState(allServiceProviders);
+    const [availableVehicles, setAvailableVehicles] = useState([]);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
 
     useEffect(() => {
-        setPagination(calculateRange(allServiceProviders, 5));
-        setServiceProviders(sliceData(allServiceProviders, page, 5));
+        setPagination(calculateRange(availableVehicles, 5));
+        setAvailableVehicles(sliceData(availableVehicles, page, 5));
+        loadAvailableVehicle()
     }, []);
+
+    const loadAvailableVehicle = async () => {
+        const response = await getAvailableVehicles()
+        if (response['status'] === 200) {
+            setAvailableVehicles(response['data'])
+        } else {
+          toast.error('Error while calling get /product api')
+        }
+      }
 
     // Search
     const __handleSearch = (event) => {
         setSearch(event.target.value);
         if (event.target.value !== '') {
-            let search_results = ServiceProviders.filter((item) =>
+            let search_results = availableVehicles.filter((item) =>
                 item.first_name.toLowerCase().includes(search.toLowerCase()) ||
                 item.last_name.toLowerCase().includes(search.toLowerCase()) ||
                 item.product.toLowerCase().includes(search.toLowerCase())
             );
-            setServiceProviders(search_results);
+            setAvailableVehicles(search_results);
         }
         else {
             __handleChangePage(1);
@@ -36,7 +47,7 @@ function AvailableVihicles () {
     // Change Page 
     const __handleChangePage = (new_page) => {
         setPage(new_page);
-        setServiceProviders(sliceData(allServiceProviders, new_page, 5));
+        setAvailableVehicles(sliceData(availableVehicles, new_page, 5));
     }
 
     return(
@@ -57,38 +68,31 @@ function AvailableVihicles () {
 
                 <table>
                 <thead>
-                        <th>Vehicle No</th>
-                        <th>Fuel Tyoe</th>
-                        <th>Passing Year</th>
-                        <th>Type</th>
-                        <th>Brand</th>
-                        <th>Location</th>
+                    <th>Vehicle No</th>
+                    <th>Fuel Type</th>
+                    <th>Passing Year</th>
+                    <th>Type</th>
+                    <th>Brand Name</th>
+                    <th>Location</th>
                     </thead>
 
-                    {ServiceProviders.length !== 0 ?
+                    {availableVehicles.length !== 0 ?
                         <tbody>
-                            {ServiceProviders.map((ServiceProvider, index) => (
+                            {availableVehicles.map((availableVehicle, index) => (
                                 <tr key={index}>
-                                    <td><span>{ServiceProvider.id}</span></td>
-                                    <td><span>{ServiceProvider.email}</span></td>
-                                    <td>
-                                    <span>{ServiceProvider.Phone}</span>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <span>{ServiceProvider.first_name} {ServiceProvider.last_name}</span>
-                                        </div>
-                                    </td>
-                                    <td><span>{ServiceProvider.Address}</span></td>
-                                    <td><span>{ServiceProvider.GST_No}</span></td>
-                                   
+                                    <td><span>{availableVehicle.vehicleNo}</span></td>
+                                    <td><span>{availableVehicle.fuelType}</span></td>
+                                    <td><span>{availableVehicle.passingYear}</span></td>
+                                    <td><span>{availableVehicle.type.type}</span></td>
+                                    <td><span>{availableVehicle.brand.brandName}</span></td>
+                                    <td><span>{availableVehicle.location.adrLine1}</span></td>
                                 </tr>
                             ))}
                         </tbody>
                     : null}
                 </table>
 
-                {ServiceProviders.length !== 0 ?
+                {availableVehicles.length !== 0 ?
                     <div className='dashboard-content-footer'>
                         {pagination.map((item, index) => (
                             <span 
@@ -109,4 +113,4 @@ function AvailableVihicles () {
     )
 }
 
-export default AvailableVihicles;
+export default AvailableVehicles;
