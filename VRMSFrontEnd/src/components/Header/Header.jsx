@@ -1,10 +1,15 @@
 import React, { useRef } from "react";
 
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
+
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../features/authSlice";
+
 import { useSelector } from "react-redux";
 import UserProfile from "../../pages/Users/UserProfile";
+
 
 const navLinks = [
   {
@@ -28,6 +33,15 @@ const Header = () => {
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
   const loginStatus = useSelector((state) => state.auth.status)
+  const dispatch = useDispatch()
+
+  const logoutUser= ()=>{
+    console.log("logout")
+
+    sessionStorage.clear()
+    dispatch(logout())
+
+  }
 
   return (
     <header className="header">
@@ -121,8 +135,15 @@ const Header = () => {
                 :
              <Col lg="6" md="6" sm="6">
               <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-              <UserProfile/>
+
+               <UserProfile/>
+                
+                <Link to="/" className=" d-flex align-items-center gap-1" onClick={logoutUser}>
+                  <i class="ri-login-circle-line" ></i> Logout
+                </Link>
               </div>
+
+              
             </Col> }
 {/* 
             <div className="nav__right">

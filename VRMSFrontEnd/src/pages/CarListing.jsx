@@ -6,26 +6,65 @@ import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
 import { useEffect } from "react";
 import axios from "axios";
+import { getAllVehicleBrands, getAllVehicleTypes, getAllVehiclesByServiceLocation } from "../services/user";
 
 
 const CarListing = () => {
 
     const [allCars, SetAllCars] = useState([])
-
+    const [allFilterdCars, SetAllFilterdCars] = useState([])
+    const [basePrice, setBasePrice] = useState(0)
+    const [plans,setPlans] = useState([])
+    const locationId = sessionStorage.getItem("locationId")
+    const { startDate, endDate } = sessionStorage
+    const [selectedTypes, setSelectedTypes] = useState([]);
+    const [selectedPlans, setSelectedPlans] = useState("");
+    const [selectedBrands, setSelectedBrands] = useState([]);
+    const [carTypes, SetCarTypes] = useState([])
+    const [carBrands, setCarBrands] = useState([])
     useEffect(() => {
 
-        axios.get("http://localhost:7070/vehicles/all")
-            .then(response => {
-                // Handle successful response
-                console.log('Response data:', response.data);
-                SetAllCars(response.data);
-            })
-            .catch(error => {
-                // Handle error
-                console.error('An error occurred:', error);
-            });
-
+        getAllVehicles()
+        getVehicleTypes()
+        getVehicleBrands()
+        const days = Math.ceil(Math.abs(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24))
+       
+        setBasePrice(240 * days)
+        const planArray = []
+        planArray.push(120 * days)
+        planArray.push(240 * days)
+        planArray.push(360 * days)
+        setPlans([...plans, ...planArray])
+        setSelectedPlans(120*days)
+    
+        
+        console.log(plans);
     }, []);
+
+    const getAllVehicles = async () => {
+        const response = await getAllVehiclesByServiceLocation(locationId)
+
+        SetAllCars(response)
+        SetAllFilterdCars(response)
+        console.log(response);
+    }
+
+    const getVehicleBrands = async () => {
+        const response = await getAllVehicleBrands()
+
+        setCarBrands(response)
+    }
+
+    const getVehicleTypes = async () => {
+        const response = await getAllVehicleTypes()
+
+        SetCarTypes(response)
+
+        console.log(response[0].type)
+    }
+
+
+
 
 
     return (
@@ -35,24 +74,78 @@ const CarListing = () => {
             <section>
                 <Container>
                     <Row>
-                        <Col lg="12">
+                        
+
+                        <Col lg="4">
                             <div className=" d-flex align-items-center gap-3 mb-5">
                                 <span className=" d-flex align-items-center gap-2">
-                                    <i class="ri-sort-asc"></i> Sort By
+                                    <i class="ri-sort-asc"></i> Car Types
                                 </span>
 
-                                <select>
-                                    <option>Select</option>
-                                    <option value="low">Low to High</option>
-                                    <option value="high">High to Low</option>
+                                <select onChange={(e) => {
+                                    setSelectedTypes(e.target.value)
+
+                                    const filteredItems = allCars.filter(item => item.type.id == e.target.value 
+                                         && item.brand.id == selectedBrands
+                                        );
+                                    console.log(allCars[2].type.id == e.target.value)
+                                    console.log(filteredItems);
+                                    SetAllFilterdCars(filteredItems)
+                                }}>
+
+                                    {carTypes.map((l) => {
+                                        return <option value={l.id} >{l.type}</option>
+                                    })}
+                                </select>
+                            </div>
+                        </Col>
+
+                        <Col lg="4">
+                            <div className=" d-flex align-items-center gap-3 mb-5">
+                                <span className=" d-flex align-items-center gap-2">
+                                    <i class="ri-sort-asc"></i> Car Plans
+                                </span>
+
+                                <select onChange={(e) => {
+                                    setSelectedPlans(e.target.value)
+                                }}>
+
+                                    {plans.map((l) => {
+                                        return <option value={l} >{l}</option>
+                                    })}
+                                </select>
+                            </div>
+                        </Col>
+
+                        <Col lg="4">
+                            <div className=" d-flex align-items-center gap-3 mb-5">
+                                <span className=" d-flex align-items-center gap-2">
+                                    <i class="ri-sort-asc"></i> Car Brands
+                                </span>
+
+                                <select onChange={(e) => {
+                                    setSelectedBrands(e.target.value)
+
+                                    const filteredItems = allCars.filter(item => item.brand.id == e.target.value 
+                                        && item.type.id== selectedTypes
+                                        );
+                                    console.log(allCars[2].brand.id == e.target.value)
+                                    console.log(filteredItems);
+                                    SetAllFilterdCars(filteredItems)
+                                }}>
+
+                                    {carBrands.map((l) => {
+                                        return <option value={l.id} >{l.brandName}</option>
+                                    })}
                                 </select>
                             </div>
                         </Col>
 
 
 
-                        {allCars.map((item) => (
-                            <CarItem item={item} key={item.id} />
+
+                        {allFilterdCars.map((item) => (
+                            <CarItem item={item} key={item.id} basePrice={basePrice} selectedPlans = {selectedPlans}/>
                         ))}
                     </Row>
                 </Container>

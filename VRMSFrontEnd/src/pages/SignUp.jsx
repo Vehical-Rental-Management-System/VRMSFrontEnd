@@ -19,12 +19,12 @@ function Register() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
-    const [mobile, setMobile] = useState('')
+    const [mobileNo, setMobile] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [age, setAge] = useState(0)
     const [aadharNo, setAadhar] = useState('')
-    const [licenceNo, setLicenceNo] = useState('')
+    const [licenseNo, setLicenseNo] = useState('')
     // get the navigation object
     const navigate = useNavigate()
   
@@ -35,7 +35,7 @@ function Register() {
         toast.error('Please enter last name')
       } else if (email.length == '') {
         toast.error('Please enter email')
-      } else if (mobile.length == '') {
+      } else if (mobileNo.length == '') {
         toast.error('Please enter mobile')
       } else if (password.length == '') {
         toast.error('Please enter password')
@@ -45,12 +45,12 @@ function Register() {
         toast.error('Please confirm password')
       }else if (aadharNo.length == '') {
         toast.error('Please confirm password')
-      }else if (licenceNo.length == '') {
+      }else if (licenseNo.length == '') {
         toast.error('Please confirm password')
       }else if (password !== confirmPassword) {
         toast.error('Password does not match')
       } else {
-        console.log(mobile + " "+ licenceNo);
+        console.log(mobileNo + " "+ licenseNo);
         // call register api
         const response = await registerUserApi(
           firstName,
@@ -58,12 +58,20 @@ function Register() {
           email,
           password,
           age,
-          mobile,
+          mobileNo,
           aadharNo,
-          licenceNo
+          licenseNo
         )
-  
-        console.log(response);
+        
+        if (response !== null) {
+            toast.success('Successfully registered a new user')
+    
+            // go back to login
+            navigate('/')
+          } else {
+            toast.error('Error while registering a new user, please try again')
+          }
+        
       }
     }
 
@@ -80,14 +88,7 @@ function Register() {
               <h2 className="fw-bold mb-2 text-center">Sign Up</h2>
               <p className="text-white-50 mb-3">Please enter your login and password!</p>
 
-              {/* <MDBInput wrapperClass='mb-4 w-100' label='Name' id='formControlLg' type='text' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Email' id='formControlLg' type='email' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Mobile Number' id='formControlLg' type='number' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Address' id='formControlLg' type='text' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Licence Number' id='formControlLg' type='text' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Confirm Password' id='formControlLg' type='password' size="lg"/>
-               */}
+             
             
             <div className='mb-3'>
               <label htmlFor=''>First Name</label>
@@ -153,16 +154,18 @@ function Register() {
                 }}
               />
             </div>
+
             <div className='mb-3'>
               <label htmlFor=''>Licence Number</label>
               <input
                 type='text'
                 className='form-control'
                 onChange={(e) => {
-                  setLicenceNo(e.target.value)
+                  setLicenseNo(e.target.value)
                 }}
               />
             </div>
+            
 
             <div className='mb-3'>
               <label htmlFor=''>Password</label>
