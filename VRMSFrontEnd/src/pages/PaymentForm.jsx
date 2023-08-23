@@ -41,7 +41,8 @@ function PaymentForm() {
 
               <MDBInput wrapperClass='mb-4 w-100' label='Card Number' id='formControlLg' type='number' size="lg"/>
               <MDBInput wrapperClass='mb-4 w-100' label='Card Holder Name' id='formControlLg' type='text' size="lg"/>
-              
+              <MDBInput wrapperClass='mb-4 w-100' label='Amount' id='formControlLg' type='number' size="lg" readOnly/>
+
               <div class="row mb-3">
                 <div class="col-6">
                   <div class="form-outline">

@@ -4,6 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import { useSelector } from "react-redux";
+import UserProfile from "../../pages/Users/UserProfile";
 
 const navLinks = [
   {
@@ -120,9 +121,7 @@ const Header = () => {
                 :
              <Col lg="6" md="6" sm="6">
               <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="/updateProfile" className=" d-flex align-items-center gap-1">
-                  <i class="ri-login-circle-line"></i> Profile
-                </Link>
+              <UserProfile/>
               </div>
             </Col> }
 {/* 
