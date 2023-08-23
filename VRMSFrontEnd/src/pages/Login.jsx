@@ -29,12 +29,14 @@ function Login() {
             const response = await loginUserApi(email, password)
 
 
-            if (response.jwt == "jwt") {
+            if (response.jwt !== null) {
                 dispatch(login())
 
                 //    toast.success(`Welcome ${name} to store application`)
 
                 sessionStorage.setItem("jwt", response.jwt)
+                sessionStorage.setItem("uid",response.userId)
+                sessionStorage.setItem("uName",response.userName)
 
                 navigate("/")
 

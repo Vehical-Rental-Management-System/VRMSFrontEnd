@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
 import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBIcon,
-  MDBCheckbox
-}
-from 'mdb-react-ui-kit';
+    MDBCard,
+    MDBCardBody,
+    MDBCol,
+    MDBContainer,
+    MDBInput,
+    MDBRow
+} from 'mdb-react-ui-kit';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function PaymentForm() {

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Col } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/car-item.css";
 
 const CarItem = (props) => {
-  const { imageFile, fuelType, brand, passingYear} = props.item;
-  const [imgSrc,setImgSrc]= useState("");
+  const {id,imageFile, fuelType, brand, passingYear} = props.item;
+  
+  const navigate = useNavigate();
+
+    var goToVehicleDetails =()=>{
+        navigate('/cars/'+id);
+    }
 
 
 //   const arrayBufferToBase64=(buffer)=> {
@@ -15,7 +20,7 @@ const CarItem = (props) => {
 //     return window.btoa(binary);
 // };
 
-const imageUrl =  URL.createObjectURL(new Blob([imageFile]));
+// const imageUrl =  URL.createObjectURL(new Blob([imageFile]));
 
 //     useEffect(() => {
 //         // var base64Flag = 'data:image/jpeg;base64,';
@@ -37,22 +42,21 @@ const imageUrl =  URL.createObjectURL(new Blob([imageFile]));
     <Col lg="4" md="4" sm="6" className="mb-5">
       <div className="car__item">
         <div className="car__img">
-          <img src={imageUrl} alt="" className="w-100 carImages" />
+          <img src={"http://localhost:7070/vehicles/images/"+id} alt="" className="w-100 carImages" />
         </div>
 
         <div className="car__item-content mt-4">
           <h4 className="section__title text-center">{brand.brandName}</h4>
           <h6 className="rent__price text-center mt-">
-          &#8377;{brand.pricingPerKm
-}.00 
+          &#8377;{props.selectedPlans* brand.pricingPerKm}.00 
           </h6>
 
           <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
             <span className=" d-flex align-items-center gap-1">
-              <i class="ri-car-line"></i> {passingYear}
+              <i className="ri-car-line"></i> {passingYear}
             </span>
             <span className=" d-flex align-items-center gap-1">
-              <i class="ri-settings-2-line"></i> {fuelType}
+              <i className="ri-settings-2-line"></i> {fuelType}
             </span>
             {/* <span className=" d-flex align-items-center gap-1">
               <i class="ri-timer-flash-line"></i> {speed}
@@ -63,9 +67,10 @@ const imageUrl =  URL.createObjectURL(new Blob([imageFile]));
             <Link to={`/cars/${carName}`}>Rent</Link>
           </button> */}
 
-          {/* <button className=" w-50 car__item-btn car__btn-details">
-            <Link to={`/cars/${carName}`}>Details</Link>
-          </button> */}
+          <button className=" w-50 car__item-btn car__btn-details" onClick={goToVehicleDetails}>
+            {/* <Link to={`/cars/${id}`}>Details</Link> */}
+                Details 
+          </button>
         </div>
       </div>
     </Col>
