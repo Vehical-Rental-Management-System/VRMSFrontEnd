@@ -10,37 +10,36 @@ const sidebar_menu = [
         path: '/',
         title: 'Summary',
     },
-    {
-        id: 2,
-        icon: ShippingIcon,
-        path: '/Users',
-        title: 'Users',
-    },
+
     {
         id: 3,
         icon: ProductIcon,
         path: '/AllVehicles',
         title: 'All vehicles',
     },
-    {
-        id: 4,
-        icon: ProductIcon,
-        path: '/AvailableVehicles',
-        title: 'Available vehicles',
-    },
-    {
-        id: 5,
-        icon: ProductIcon,
-        path: '/ReservedVehicles',
-        title: 'Reserved vehicles',
-    },
-    
-    {
+
+ {
         id: 6,
         icon: UserIcon,
-        path: '/profile',
+        path: '/Profile',
         title: 'My account',
+    },
+
+ {
+        id: 8,
+        icon: UserIcon,
+        path: '/UpdateVehicle',
+        title: 'Update Vehicle',
+    },
+
+  {
+        id: 10,
+        icon: UserIcon,
+        path: '/ChangePassword',
+        title: 'Change Password',
     }
+
+
 ]
 
 export default sidebar_menu;
