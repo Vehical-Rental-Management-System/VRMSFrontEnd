@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from 'react';
 
-function ChangePassword(){
+function AdminChangePassword(){
 
 
     return (
@@ -39,4 +39,4 @@ function ChangePassword(){
                 );
 
               }
-              export default ChangePassword;
+              export default AdminChangePassword;

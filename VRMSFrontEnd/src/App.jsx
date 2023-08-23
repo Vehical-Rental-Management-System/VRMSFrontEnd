@@ -17,13 +17,23 @@ import PaymentForm from "./pages/PaymentForm";
 import AllVehicles from './pages/AllVehicles';
 import AvailableVehicles from './pages/AvailableVehicles';
 import ReservedVehicles from './pages/ReservedVehicles';
-import Users from './pages/Users';
+import Users from './pages/RetrieveUsers';
 import SideBar from './components/Sidebar';
 import sidebar_menu from './constants/sidebar-menu';
 import UserProfile from "./pages/Users/UserProfile";
 import ViewProfile from "./pages/Users/ViewProfile";
 import ChangePassword from "./pages/Users/ChangePassword";
 import MyBookings from "./pages/Users/MyBookings";
+import UpdateVehicle from "./pages/UpdateVehicle";
+import AdminChangePassword  from "./pages/AdminChangePassword/index";
+import Profile from "./pages/Profile/"
+import Bookings from "./pages/Bookings"
+import BookingsWithFeedback from "./pages/BookingsWithFeedback"
+import WebsiteFeedback from "./pages/WebsiteFeedback"
+import ServiceLocations from "./pages/ServiceLocation"
+import AddServiceLocation from "./pages/AddServiceLocation"
+import AddVehicle from "./pages/AddVehicle"
+
 
 function App() {
 
@@ -69,8 +79,16 @@ function App() {
                         <Route exact path="/AvailableVehicles" element={< AvailableVehicles />} />
                         <Route exact path="/ReservedVehicles" element={< ReservedVehicles />} />
                         <Route exact path="/Users" element={< Users />} />
-                        <Route exact path="/locations" element={<div></div>} />
-                        <Route exact path="/profile" element={< div />} />
+                        <Route path ="/Profile" element = {<Profile/>}/>
+                        <Route path ="/AdminChangePassword" element = {<AdminChangePassword/>}/>
+                        <Route path ="/Bookings" element = {<Bookings/>}/>
+                        <Route path ="/BookingsWithFeedback" element = {<BookingsWithFeedback/>}/>
+                        <Route path ="/ServiceLocations" element = {<ServiceLocations/>}/>
+                        <Route path ="/AddServiceLocation" element = {<AddServiceLocation/>}/>
+                        <Route path ="/AddVehicle" element = {<AddVehicle/>}/>
+                        <Route path ="/WebsiteFeedback" element = {<WebsiteFeedback/>}/>
+                        
+
                         {/* <Route exact path="/addServiceProvider" element={ <addServiceProvider /> }/> */}
                   
 

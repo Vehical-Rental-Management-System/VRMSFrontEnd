@@ -7,7 +7,7 @@ import "../../styles/header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/authSlice";
 
-import { useSelector } from "react-redux";
+
 import UserProfile from "../../pages/Users/UserProfile";
 
 
