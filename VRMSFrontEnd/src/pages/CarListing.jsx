@@ -84,13 +84,13 @@ const CarListing = () => {
 
                                 <select onChange={(e) => {
                                     setSelectedTypes(e.target.value)
-
+                                   
                                     const filteredItems = allCars.filter(item => item.type.id == e.target.value 
                                          && item.brand.id == selectedBrands
                                         );
-                                    console.log(allCars[2].type.id == e.target.value)
+                                   
                                     console.log(filteredItems);
-                                    SetAllFilterdCars(filteredItems)
+                                    if(filteredItems!=null) SetAllFilterdCars(filteredItems)
                                 }}>
 
                                     {carTypes.map((l) => {
@@ -129,7 +129,7 @@ const CarListing = () => {
                                     const filteredItems = allCars.filter(item => item.brand.id == e.target.value 
                                         && item.type.id== selectedTypes
                                         );
-                                    console.log(allCars[2].brand.id == e.target.value)
+                                    
                                     console.log(filteredItems);
                                     SetAllFilterdCars(filteredItems)
                                 }}>
