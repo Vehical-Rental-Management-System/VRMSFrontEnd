@@ -34,8 +34,10 @@ import ServiceLocations from "./pages/ServiceLocation"
 import AddServiceLocation from "./pages/AddServiceLocation"
 import AddVehicle from "./pages/AddVehicle"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { login } from "./features/authSlice";
+import { login, roleAdmin, roleCustomer } from "./features/authSlice";
 import AdminLogin from "./pages/AdminLogin";
+import ValidateUser from "./pages/ValidateUser";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
 
@@ -47,10 +49,12 @@ function App() {
     const role = useSelector((state) => state.auth.role)
 
     const jwtText = sessionStorage.getItem("jwt")
-
+    const userRole = sessionStorage.getItem("role")
     const dispatch = useDispatch()
     if(jwtText && jwtText.length > 1){
         dispatch(login())
+        if(userRole=="Admin") dispatch(roleAdmin())
+        else dispatch(roleCustomer())
     }
 
   return (
@@ -74,6 +78,8 @@ function App() {
                     <Route path="/changePassword" element={<ChangePassword />} />
                     <Route path="/myBooking" element={<MyBookings />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/validateUser" element={<ValidateUser />} />
+                    <Route path="/forgotPassword" element={<ForgotPassword />} />
                     <Route path="/logout" element={<Home />} />
                     <Route path="/adminLogin" element={<AdminLogin />} />
                     
