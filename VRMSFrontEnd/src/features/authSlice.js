@@ -5,7 +5,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     status: true,
-    role:"Customer"
+    role:"Admin"
   },
   reducers: {
     // action: action handler

@@ -1,16 +1,44 @@
-
 import React, {useState, useEffect} from 'react';
-
+import { getAllServiceLocations, updateVehicle } from '../../services/admin';
+import { Link, useNavigate } from 'react-router-dom';
 function UpdateVehicle(){
 
    
-
+    const navigate= useNavigate()
     const fuelType=sessionStorage.getItem("fuelType")
     const location=sessionStorage.getItem("location")
     const locationId=sessionStorage.getItem("locationId")
+    const vehicleId=sessionStorage.getItem("vehicleId")
 
-    // const [fuel, setFuel] = useState(fuelType)
-    // const [loc, setLocation] = useState(location)
+    const [fuel, setFuel] = useState(fuelType)
+    const [locations, setLocations] = useState([])
+    const [locId, setLocationId] = useState(location.id)
+
+    useEffect(()=>{
+
+        getLocations()
+
+    },[])
+
+    const getLocations = async()=>{
+
+        const response = await getAllServiceLocations()
+        console.log(response.data);
+        if(response.data !== null){
+        setLocations(response.data)
+        setLocationId(response.data[0].id)
+    }
+        
+    }
+
+    const sendUpdatedVehicle= async(e)=>{
+        e.preventDefault();
+        const response= await updateVehicle(vehicleId,fuel,locId)
+        navigate("/AllVehicles")
+        return response
+        
+    }
+
     
     return (
         <>
@@ -30,33 +58,32 @@ function UpdateVehicle(){
                         id="fuelType"
                         aria-describedby="emailHelp"
                         placeholder="Enter Fuel Type"
-                        value={fuelType}
-                        // onChange={(e) => {
-                        //     setFuel(e.target.value)
-                        //   }}
+                        value={fuel}
+                        onChange={(e) => {
+                            setFuel(e.target.value)
+                          }}
                     />
                 </div>
 
         
                 <br />
                <div class="form-group">
-               <label for="exampleInputEmail1">Service Location</label>
-                   <input
-                       type="number"
-                       class="form-control"
-                       id="serviceLocationadrLine1"
-                       aria-describedby="emailHelp"
-                       placeholder="Enter Service Location"
-                       value={location}
-                    //    onChange={(e) => {
-                    //     setLocation(e.target.value)
-                    //   }}
-                   />
+               
+                        <label htmlFor=''>Area</label>
+                        <select onChange={(e) => {
+                                        setLocationId(e.target.value)
+                                    }}>
+                        
+                        {locations.map((l)=>{
+                            return <option value={l.id} >{l.adrLine1}</option> 
+                        })}
+                        </select>
+                    
                </div>
          
             
                 <br />
-                <button type="submit" className="btn btn-info" >Update Vehicle</button>
+                <button type="submit" className="btn btn-info" onClick={sendUpdatedVehicle} >Update Vehicle</button>
             
                 </form>
                 </>
