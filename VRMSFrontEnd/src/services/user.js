@@ -116,3 +116,46 @@ export async function getAllServiceLocation() {
       return null
     }
   }
+
+
+  export async function addPayment(cardNo,cardHolderName,cvv,expiryDate,paymentAmount,bookingId){
+
+    const url = createUrl('/payment')
+
+    const body = {
+        cardNo,
+        cardHolderName,
+        cvv,
+        expiryDate,
+        paymentAmount,
+        bookingId
+    }
+
+    try {
+        const response = await axios.post(url, body)
+        log(response.data)
+        return response.data
+      } catch (ex) {
+        log(ex)
+        return null
+      }
+
+  }
+
+
+
+
+  export async function getAllMyBookings(userId) {
+    const url = createUrl('/booking/'+userId)
+    
+  
+    //wait till axios is making the api call and getting response from server
+    try {
+      const response = await axios.get(url)
+      
+      return response.data
+    } catch (ex) {
+      log(ex)
+      return null
+    }
+  }

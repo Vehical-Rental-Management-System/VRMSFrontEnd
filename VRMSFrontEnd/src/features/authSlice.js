@@ -4,7 +4,7 @@ export const authSlice = createSlice({
   // name of slice (must be unique)
   name: 'auth',
   initialState: {
-    status: true,
+    status: false,
     role:"Customer"
   },
   reducers: {

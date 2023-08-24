@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
 
-import { Container, Row, Col, Button } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
 import "../../styles/header.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/authSlice";
+import { useSelector } from "react-redux";
 
 
 import UserProfile from "../../pages/Users/UserProfile";
@@ -33,15 +32,7 @@ const Header = () => {
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
   const loginStatus = useSelector((state) => state.auth.status)
-  const dispatch = useDispatch()
-
-  const logoutUser= ()=>{
-    console.log("logout")
-
-    sessionStorage.clear()
-    dispatch(logout())
-
-  }
+  
 
   return (
     <header className="header">
@@ -138,9 +129,6 @@ const Header = () => {
 
                <UserProfile/>
                 
-                <Link to="/" className=" d-flex align-items-center gap-1" onClick={logoutUser}>
-                  <i class="ri-login-circle-line" ></i> Logout
-                </Link>
               </div>
 
               
