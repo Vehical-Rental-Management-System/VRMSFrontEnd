@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from 'react';
 import { getAllServiceLocations, updateVehicle } from '../../services/admin';
 import { Link, useNavigate } from 'react-router-dom';

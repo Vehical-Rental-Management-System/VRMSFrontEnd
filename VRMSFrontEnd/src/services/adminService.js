@@ -235,6 +235,7 @@ export async function uploadImageApi(vehicleId,imageFile) {
   const url = createUrl('/vehicles/images/'+vehicleId)
 
 
+
 console.log(imageFile);
   // wait till axios is making the api call and getting response from server
   try {

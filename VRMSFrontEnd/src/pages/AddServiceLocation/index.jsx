@@ -19,10 +19,7 @@ function AddServiceLocation() {
     const [adrLine1, setAdrLine1] = useState('')
     const [adrLine2, setAdrLine2] = useState('')
     const [city, setCity] = useState('')
-    const [state, setState] = useState('')
-    const [country, setCountry] = useState('')
     const [zipCode, setZipCode] = useState('')
-    // get the navigation object
     const navigate = useNavigate()
   
     const addServiceLocation = async () => {
@@ -34,7 +31,8 @@ function AddServiceLocation() {
             adrLine2,
             city,'Maharashtra','India',zipCode
         )
-  
+        
+       navigate('/ServiceLocations')
         console.log(response);
       }
     }
