@@ -82,12 +82,12 @@ function MyBookings() {
                         {booking.status=="Successfull"
                         ?
                         <>
-                        <td><button className="btn btn-danger" onClick={()=>{handleCancelBooking(booking.id)}}>Cancel Booking</button></td>
-                        <td><button className="btn btn-primary" onClick={()=>{ handleAddFeedback(booking.id)}}>FeedBack</button></td>
+                        <td><button className="btn btn-danger" style={{color:"red"}} onClick={()=>{handleCancelBooking(booking.id)}}>Cancel Booking</button></td>
+                        <td><button className="btn btn-primary" style={{color:"blue"}} onClick={()=>{ handleAddFeedback(booking.id)}}>FeedBack</button></td>
                         </>
                         :
                         <>
-                        <td><button className="btn btn-primary" onClick={()=>{handlePayBooking(booking.id,booking.amount)}} >Pay Now Here</button></td>
+                        <td><button className="btn btn-primary" style={{color:"blue"}} onClick={()=>{handlePayBooking(booking.id,booking.amount)}} >Pay Now Here</button></td>
                         <td></td>
                         </>
                         
