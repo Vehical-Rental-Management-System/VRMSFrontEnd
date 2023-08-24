@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import { login } from '../features/authSlice';
 import { loginUser as loginUserApi } from '../services/user';
 import '../styles/Login.css';
-function Login() {
+function AdminLogin() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
@@ -95,8 +95,7 @@ function Login() {
                             <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={loginUser}>Login</button>
 
                             <a className="small text-muted mb-3" href="#!">Forgot password?</a>
-                            <p className="mb-2 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <Link to="/register" style={{ color: '#393f81' }}>Register here</Link></p>
-                            <p className="mb-3 pb-lg-2" style={{ color: '#393f81' }}>Login as an <Link to="/adminLogin" style={{ color: '#393f81' }}>Admin</Link></p>
+                             <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Login as an <Link to="/login" style={{ color: '#393f81' }}>User</Link></p>
 
                         </MDBCardBody>
                     </MDBCard>
@@ -110,6 +109,6 @@ function Login() {
     );
 }
 
-export default Login;
+export default AdminLogin;
 
 

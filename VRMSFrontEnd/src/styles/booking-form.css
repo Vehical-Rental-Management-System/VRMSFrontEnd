@@ -1,5 +1,9 @@
 .booking-button{
     background-color: #000d6b;
+    padding: 8px 15px;
+    width: 15%;
+    border: none;
+    outline: none;
 }
 
 

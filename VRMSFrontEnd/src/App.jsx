@@ -33,7 +33,9 @@ import WebsiteFeedback from "./pages/WebsiteFeedback"
 import ServiceLocations from "./pages/ServiceLocation"
 import AddServiceLocation from "./pages/AddServiceLocation"
 import AddVehicle from "./pages/AddVehicle"
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { login } from "./features/authSlice";
+import AdminLogin from "./pages/AdminLogin";
 
 function App() {
 
@@ -44,10 +46,17 @@ function App() {
 
     const role = useSelector((state) => state.auth.role)
 
+    const jwtText = sessionStorage.getItem("jwt")
+
+    const dispatch = useDispatch()
+    if(jwtText && jwtText.length > 1){
+        dispatch(login())
+    }
+
   return (
     <>
       
-      { location.pathname=="/login" ?<LoginHeader></LoginHeader>: location.pathname=="/register" ? <LoginHeader></LoginHeader>:role=="Admin"?<></>:<Header /> }
+      { location.pathname=="/login" ?<LoginHeader></LoginHeader>: location.pathname=="/register" ? <LoginHeader></LoginHeader>:location.pathname=="/adminLogin" ?<LoginHeader></LoginHeader>:role=="Admin"?<></>:<Header /> }
       <div className='row'>
       {role=="Admin" &&  <div className='col-md-2'><SideBar menu={sidebar_menu} /></div>}
             
@@ -66,6 +75,7 @@ function App() {
                     <Route path="/myBooking" element={<MyBookings />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<Home />} />
+                    <Route path="/adminLogin" element={<AdminLogin />} />
                     
                     <Route path="/register" element={<Register />} />
                     </Routes>
@@ -97,7 +107,7 @@ function App() {
                 </Routes>
             </div>
             </div>
-      { location.pathname=="/login" ?<></> :location.pathname=="/register" ? <></>:role=="Admin"?<></>:<Footer /> }
+      { location.pathname=="/login" ?<></> :location.pathname=="/register" ? <></>:location.pathname=="/adminLogin" ?<></>:role=="Admin"?<></>:<Footer /> }
     
       <ToastContainer />
     </>
