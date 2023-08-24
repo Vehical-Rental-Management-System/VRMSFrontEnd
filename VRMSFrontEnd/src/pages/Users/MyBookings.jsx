@@ -4,12 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Table } from "reactstrap";
 import '../../styles/mybooking.css'
 import { getAllMyBookings } from "../../services/user";
+import { useNavigate } from "react-router-dom";
 function MyBookings() {
     
     const [bookings,setBookings] = useState([])
     const uid = sessionStorage.getItem("uid")
-    useEffect(()=>{
+    const navigate = useNavigate();
 
+    useEffect(()=>{
         getMyBookings();
     },[])
 
@@ -21,6 +23,11 @@ function MyBookings() {
             setBookings(response)
         }
 
+    }
+
+    const handleCancelBooking = (bookingId)=>{
+        sessionStorage.setItem('bookingId',bookingId);
+        navigate('/cancelBooking');
     }
 
     return (
@@ -61,7 +68,7 @@ function MyBookings() {
                         <td>{booking.extraCharge}</td>
                         <td>{booking.totalAmount}</td>
                         <td>{booking.status}</td>
-                        <td><button className="btn btn-danger">Cancel Booking</button></td>
+                        <td><button className="btn btn-danger" onClick={()=>{handleCancelBooking(booking.id)}}>Cancel Booking</button></td>
                         </tr>
                         )}
                     </tbody>

@@ -36,6 +36,7 @@ import AddVehicle from "./pages/AddVehicle"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { login, roleAdmin, roleCustomer } from "./features/authSlice";
 import AdminLogin from "./pages/AdminLogin";
+import CancelBooking from "./pages/Users/CancelBooking";
 import ValidateUser from "./pages/ValidateUser";
 import ForgotPassword from "./pages/ForgotPassword";
 
@@ -82,6 +83,7 @@ function App() {
                     <Route path="/forgotPassword" element={<ForgotPassword />} />
                     <Route path="/logout" element={<Home />} />
                     <Route path="/adminLogin" element={<AdminLogin />} />
+                    <Route path="/cancelBooking" element={<CancelBooking />} />
                     
                     <Route path="/register" element={<Register />} />
                     </Routes>
