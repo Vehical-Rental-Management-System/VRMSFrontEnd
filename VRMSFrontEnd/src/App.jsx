@@ -40,6 +40,7 @@ import AdminLogin from "./pages/AdminLogin";
 import CancelBooking from "./pages/Users/CancelBooking";
 import ValidateUser from "./pages/ValidateUser";
 import ForgotPassword from "./pages/ForgotPassword";
+import BookingFeedback from "./pages/Users/BookingFeedback";
 
 function App() {
 
@@ -85,6 +86,8 @@ function App() {
                     <Route path="/logout" element={<Home />} />
                     <Route path="/adminLogin" element={<AdminLogin />} />
                     <Route path="/cancelBooking" element={<CancelBooking />} />
+                    <Route path="/bookingFeedback" element={<BookingFeedback />} />
+
                     
                     <Route path="/register" element={<Register />} />
                     </Routes>
