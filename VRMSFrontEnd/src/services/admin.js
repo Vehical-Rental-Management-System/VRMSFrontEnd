@@ -119,11 +119,11 @@ export async function deleteVehicle(id) {
 }
 
 
-  export async function getAllBookings() {
+  export async function getAllBookings(year) {
     try {
       const url='http://localhost:7070/booking/allbookings'
   
-      const response = await axios.get(url)
+      const response = await axios.post(url,year)
       log(response)
       return response
     } catch (ex) {
@@ -148,9 +148,9 @@ export async function deleteVehicle(id) {
 
 
 
-  export async function getYearlyRevenue() {
+  export async function getYearlyRevenue(year) {
     try {
-      const url='http://localhost:7070/booking/yearly_revenue'
+      const url=`http://localhost:7070/booking/yearly_revenue/${year}`
   
       const response = await axios.get(url)
       log(response)
@@ -215,23 +215,23 @@ export async function deleteServiceLocation(id) {
   }
 
 
-export async function ChangePassword(email,password) {
+// export async function ChangePassword(email,password) {
     
-    const url='http://localhost:7070/admin/updatePassword'
+//     const url='http://localhost:7070/admin/updatePassword'
   
-    const body = {
-      email,
-      password,
+//     const body = {
+//       email,
+//       password,
     
-    }
+//     }
   
-    try {
-      const response = await axios.post(url, body)
-      log(response)
-      return response
-    } catch (ex) {
-      log(ex)
-      return null
-    }
-}
+//     try {
+//       const response = await axios.post(url, body)
+//       log(response)
+//       return response
+//     } catch (ex) {
+//       log(ex)
+//       return null
+//     }
+// }
 

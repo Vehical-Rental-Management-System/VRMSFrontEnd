@@ -12,99 +12,70 @@ const sidebar_menu = [
     },
 
     {
-        id: 3,
+        id: 2,
         icon: ProductIcon,
         path: '/AllVehicles',
         title: 'All vehicles',
     },
 
  {
-        id: 6,
+        id: 3,
         icon: UserIcon,
         path: '/Profile',
         title: 'My account',
     },
-
- {
-        id: 8,
-        icon: UserIcon,
-        path: '/UpdateVehicle',
-        title: 'Update Vehicle',
-    },
-
-  {
-        id: 10,
-        icon: UserIcon,
-        path: '/ChangePassword',
-        title: 'Change Password',
-    },
     {
-        id: 1,
-        icon: DashboardIcon,
-        path: '/',
-        title: 'Summary',
-    },
-    {
-        id: 2,
+        id: 5,
         icon: ShippingIcon,
         path: '/Users',
         title: 'Users',
     },
     {
-        id: 4,
+        id: 6,
         icon: ProductIcon,
         path: '/AvailableVehicles',
         title: 'Available vehicles',
     },
     {
-        id: 5,
+        id: 7,
         icon: ProductIcon,
         path: '/ReservedVehicles',
         title: 'Reserved vehicles',
     },
 
     {
-        id: 5,
-        icon: ProductIcon,
-        path: '/AddVehicle',
-        title: 'Add Vehicle',
-    },
-
-    {
-        id: 6,
+        id: 8,
         icon: DashboardIcon,
         path: '/ServiceLocations',
         title: 'Service Locations',
     }, 
     {
-        id: 7,
+        id: 9,
         icon: ShippingIcon,
         path: '/Bookings',
         title: 'Bookings',
     }, 
     {
-        id: 8,
+        id: 10,
         icon: ShippingIcon,
         path: '/BookingsWithFeedback',
         title: 'Bookings With Feedback',
     },
     {
-        id: 9,
+        id: 11,
         icon: ShippingIcon,
         path: '/WebsiteFeedback',
         title: 'Website Feedback',
     },
     {
-        id: 10,
+        id: 12,
         icon: DashboardIcon,
-        path: '/AddServiceLocation',
-        title: 'Add Service Location',
-    }, 
-
+        path: '/GetRevenue',
+        title: 'Revenue',
+    },
 ]
 
 
 
 
 export default sidebar_menu;
-

@@ -25,7 +25,7 @@ import ViewProfile from "./pages/Users/ViewProfile";
 import ChangePassword from "./pages/Users/ChangePassword";
 import MyBookings from "./pages/Users/MyBookings";
 import UpdateVehicle from "./pages/UpdateVehicle";
-import AdminChangePassword  from "./pages/AdminChangePassword/index";
+import AdminChangePassword  from "./pages/AdminChangePassword";
 import Profile from "./pages/Profile/"
 import Bookings from "./pages/Bookings"
 import BookingsWithFeedback from "./pages/BookingsWithFeedback"
@@ -33,6 +33,8 @@ import WebsiteFeedback from "./pages/WebsiteFeedback"
 import ServiceLocations from "./pages/ServiceLocation"
 import AddServiceLocation from "./pages/AddServiceLocation"
 import AddVehicle from "./pages/AddVehicle"
+
+
 
 
 function App() {
@@ -61,6 +63,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/payment" element={<PaymentForm />} />
                     <Route path="/updateprofile" element={<UpdateProfile />} />
+                    <Route path="/UpdateVehicle" element={<UpdateVehicle />} />
                     <Route path="/viewProfile" element={<ViewProfile />} />
                     <Route path="/changePassword" element={<ChangePassword />} />
                     <Route path="/myBooking" element={<MyBookings />} />
@@ -87,6 +90,7 @@ function App() {
                         <Route path ="/AddServiceLocation" element = {<AddServiceLocation/>}/>
                         <Route path ="/AddVehicle" element = {<AddVehicle/>}/>
                         <Route path ="/WebsiteFeedback" element = {<WebsiteFeedback/>}/>
+                        
                         
 
                         {/* <Route exact path="/addServiceProvider" element={ <addServiceProvider /> }/> */}
