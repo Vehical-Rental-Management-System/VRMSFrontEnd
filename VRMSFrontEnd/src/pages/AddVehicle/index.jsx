@@ -12,21 +12,36 @@ import {
 }
 from 'mdb-react-ui-kit';
 import { toast } from 'react-toastify';
-import { addVehicle, addVehicle as addVehicleApi } from '../../services/adminService'
-import { useNavigate } from 'react-router-dom';
-function AddServiceLocation() {
+import { addVehicle as addVehicleApi } from '../../services/adminService'
+import { getServiceLocations } from '../../services/adminService';
+import { useEffect } from "react";
+import { getAllVehicleBrands, getAllVehicleTypes } from '../../services/user'
+import { useNavigate} from 'react-router-dom';
 
 
-    const [vehicleNo, setVehicleNo] = useState('')
-    const [fuelType, setFuelType] = useState('')
-    const [passingYear, setPassingYear] = useState('')
-    const [type, setType] = useState('')
-    const [brand, setBrand] = useState('')
-    const [serviceLocation, setServiceLocation] = useState('')
-    // get the navigation object
-    const navigate = useNavigate()
+function AddVehicle() {
+
+
+    const [vehicleNo, setVehicleNo] = useState([])
+    const [fuelType, setFuelType] = useState([])
+    const [passingYear, setPassingYear] = useState([])
+    const [type, setType] = useState([])
+    const [brand, setBrand] = useState([])
+    const [serviceLocation, setServiceLocation] = useState([])
+    const [typeId,setTypeId] = useState([])
+    const [brandId,setBrandId] = useState([])
+    const [serviceLocationId,setServiceLocationId] = useState([])
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+
+      getVehicleTypes()
+      getVehicleBrands()
+      getAllServiceLocations()
+  }, []);
   
-    const addServiceLocation = async () => {
+    const addVehicle = async () => {
       if (vehicleNo.length == '') {
         toast.error('Please enter vehicle number')
       } else if (fuelType.length == '') {
@@ -41,12 +56,35 @@ function AddServiceLocation() {
         toast.error('Please enter service location')
       } else {
         const response = await addVehicleApi(
-          vehicleNo,fuelType,passingYear,type,brand,serviceLocation
+          vehicleNo,fuelType,passingYear,typeId,brandId,serviceLocationId
         )
-  
+        
+        navigate('/AllVehicles');
         console.log(response);
       }
     }
+
+    const getVehicleBrands = async () => {
+      const response = await getAllVehicleBrands()
+
+      setBrand(response)
+      console.log(response)
+  }
+
+  const getVehicleTypes = async () => {
+      const response = await getAllVehicleTypes()
+
+      setType(response)
+      console.log(response)
+  }
+
+  const getAllServiceLocations = async () => {
+    const response = await getServiceLocations()
+
+    setServiceLocation(response.data)
+    console.log(response.data)
+}
+
 
 
   return (
@@ -104,37 +142,43 @@ function AddServiceLocation() {
               />
             </div>
 
+                         
             <div className='mb-3'>
-              <label htmlFor=''>Vehicle Type</label>
-              <input
-                type='text'
-                className='form-control'
-                onChange={(e) => {
-                  setType(e.target.value)
-                }}
-              />
+                <label htmlFor=''>Car Type</label>
+                <select onChange={(e) => {
+                                setTypeId(e.target.value)
+                            }}>
+                
+                {type.map((l)=>{
+                    return <option value={l.id} >{l.type}</option> 
+                })}
+                </select>
+            </div>
+
+                        
+
+            <div className='mb-3'>
+                <label htmlFor=''>Car Brand</label>
+                <select onChange={(e) => {
+                                setBrandId(e.target.value)
+                            }}>
+                
+                {brand.map((l)=>{
+                    return <option value={l.id} >{l.brandName}</option> 
+                })}
+                </select>
             </div>
 
             <div className='mb-3'>
-              <label htmlFor=''>Vehicle Brand</label>
-              <input
-                type='text'
-                className='form-control'
-                onChange={(e) => {
-                  setBrand(e.target.value)
-                }}
-              />
-            </div>
-
-            <div className='mb-3'>
-              <label htmlFor=''>Service Location</label>
-              <input
-                type='text'
-                className='form-control'
-                onChange={(e) => {
-                  setServiceLocation(e.target.value)
-                }}
-              />
+                <label htmlFor=''>Service Location</label>
+                <select onChange={(e) => {
+                                setServiceLocationId(e.target.value)
+                            }}>
+                
+                {serviceLocation.map((l)=>{
+                    return <option value={l.id} >{l.adrLine1}</option> 
+                })}
+                </select>
             </div>
               <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={addVehicle}>Add Vehicle</button>
 
@@ -151,4 +195,4 @@ function AddServiceLocation() {
   );
 }
 
-export default AddServiceLocation;
+export default AddVehicle;

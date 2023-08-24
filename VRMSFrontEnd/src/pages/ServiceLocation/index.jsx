@@ -6,19 +6,26 @@ import {calculateRange, sliceData} from '../../utils/table-pagination';
 import { getServiceLocations } from '../../services/adminService';
 
 import '../styles.css';
-
+import { deleteServiceLocation } from '../../services/admin';
+import { useNavigate } from 'react-router-dom';
 
 function ServiceLocations () {
     const [search, setSearch] = useState('');
     const [serviceLocations, setServiceLocations] = useState([]);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
+    const navigate=useNavigate();
 
     useEffect(() => {
         setPagination(calculateRange(serviceLocations, 5));
         setServiceLocations(sliceData(serviceLocations, page, 5));
         loadAllServiceLocations();
     }, []);
+
+    const removeServiceLocation = async (id) => {
+        const response = await deleteServiceLocation(id)
+        loadAllServiceLocations()
+    }
 
     const loadAllServiceLocations = async () => {
         const response = await getServiceLocations()
@@ -28,6 +35,10 @@ function ServiceLocations () {
           toast.error('Error while calling get /product api')
         }
       }
+
+      const addServiceLocation = async () => {
+        navigate("/AddServiceLocation")
+    }
 
     // Search
     const __handleSearch = (event) => {
@@ -53,7 +64,8 @@ function ServiceLocations () {
 
     return(
         <div className='dashboard-content'>
-
+            <DashboardHeader
+                btnText="Add Service Location"  onClick={addServiceLocation} />
             <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
                     <h2>Service Location List</h2>
@@ -84,7 +96,7 @@ function ServiceLocations () {
                                     <td><span>{serviceLocation.adrLine2}</span></td>
                                     <td><span>{serviceLocation.city}</span></td>
                                     <td><span>{serviceLocation.zipCode}</span></td>
-                                    <td> <button className='btn btn-Info'>Remove</button> </td>
+                                    <td> <button className='btn btn-danger'  onClick={()=>{removeServiceLocation(serviceLocation.id)}}>Remove</button> </td>
                                 </tr>
                             ))}
                         </tbody>
