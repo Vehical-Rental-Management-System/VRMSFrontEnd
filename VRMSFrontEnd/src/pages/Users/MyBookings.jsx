@@ -79,7 +79,7 @@ function MyBookings() {
                         <td>{booking.amount}</td>
                         
                         <td>{booking.status}</td>
-                        {booking.status=="Successfull"
+                        {booking.status=="Successful"
                         ?
                         <>
                         <td><button className="btn btn-danger" style={{color:"red"}} onClick={()=>{handleCancelBooking(booking.id)}}>Cancel Booking</button></td>
