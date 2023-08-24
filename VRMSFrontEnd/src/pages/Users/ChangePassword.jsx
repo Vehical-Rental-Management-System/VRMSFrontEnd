@@ -12,6 +12,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function ChangePassword() {
 
@@ -19,7 +20,7 @@ function ChangePassword() {
 
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-
+const navigate = useNavigate()
   const changePasswordHandler = ()=>{
 
     const passwordObj = { id, oldPassword, newPassword}
@@ -28,6 +29,7 @@ function ChangePassword() {
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
+        navigate("/viewProfile")
     })
     .catch(error => {
         // Handle error

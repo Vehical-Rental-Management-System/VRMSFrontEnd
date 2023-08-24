@@ -2,8 +2,9 @@ import LoginHeader from "./components/UI/LoginHeader";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import CarListing from "./pages/CarListing";
@@ -116,8 +117,8 @@ function App() {
             </div>
             </div>
       { location.pathname=="/login" ?<></> :location.pathname=="/register" ? <></>:location.pathname=="/adminLogin" ?<></>:role=="Admin"?<></>:<Footer /> }
+    <ToastContainer/>
     
-      <ToastContainer />
     </>
   );
 }
