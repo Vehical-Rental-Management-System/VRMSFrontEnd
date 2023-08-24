@@ -10,23 +10,24 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { login, roleCustomer } from '../features/authSlice';
-import { loginUser as loginUserApi } from '../services/user';
+import { login, roleAdmin } from '../features/authSlice';
 import '../styles/Login.css';
-function Login() {
+import { adminLoginUser } from '../services/user';
+
+function AdminLogin() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    const loginUser = async () => {
+    const loginAdmin = async () => {
         if (email.length == '') {
             toast.error('Please enter email')
         } else if (password.length == '') {
             toast.error('Please enter password')
         } else {
             // call register api
-            const response = await loginUserApi(email, password)
+            const response = await adminLoginUser(email, password)
 
 
             if (response.jwt !== null) {
@@ -37,9 +38,9 @@ function Login() {
                 sessionStorage.setItem("jwt", response.jwt)
                 sessionStorage.setItem("uid",response.userId)
                 sessionStorage.setItem("uName",response.userName)
-                sessionStorage.setItem("role","Customer")
-                dispatch(roleCustomer())
-                navigate("/")
+                sessionStorage.setItem("role","Admin")
+                dispatch(roleAdmin())
+                navigate("/Profile")
 
             }
             else {
@@ -93,12 +94,10 @@ function Login() {
 
 
 
-                            <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={loginUser}>Login</button>
+                            <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={loginAdmin}>Login</button>
 
                            
-                            <Link to="/validateUser" className='small text-muted mb-3'>Forgot password?</Link>
-                            <p className="mb-2 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <Link to="/register" style={{ color: '#393f81' }}>Register here</Link></p>
-                            <p className="mb-3 pb-lg-2" style={{ color: '#393f81' }}>Login as an <Link to="/adminLogin" style={{ color: '#393f81' }}>Admin</Link></p>
+                             <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Login as an <Link to="/login" style={{ color: '#393f81' }}>User</Link></p>
 
                         </MDBCardBody>
                     </MDBCard>
@@ -112,6 +111,6 @@ function Login() {
     );
 }
 
-export default Login;
+export default AdminLogin;
 
 

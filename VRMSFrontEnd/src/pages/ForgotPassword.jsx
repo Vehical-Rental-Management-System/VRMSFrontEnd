@@ -11,39 +11,31 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { login, roleCustomer } from '../features/authSlice';
-import { loginUser as loginUserApi } from '../services/user';
+import { forgotPasswordApi, loginUser as loginUserApi } from '../services/user';
 import '../styles/Login.css';
-function Login() {
+function ForgotPassword() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
-    const dispatch = useDispatch()
 
-    const loginUser = async () => {
+    const updateUser = async () => {
         if (email.length == '') {
             toast.error('Please enter email')
         } else if (password.length == '') {
             toast.error('Please enter password')
         } else {
             // call register api
-            const response = await loginUserApi(email, password)
+            const response = await forgotPasswordApi(email, password)
 
 
-            if (response.jwt !== null) {
-                dispatch(login())
-
-                //    toast.success(`Welcome ${name} to store application`)
-
-                sessionStorage.setItem("jwt", response.jwt)
-                sessionStorage.setItem("uid",response.userId)
-                sessionStorage.setItem("uName",response.userName)
-                sessionStorage.setItem("role","Customer")
-                dispatch(roleCustomer())
-                navigate("/")
+            if (response !== null) {
+                console.log("password updated succesfully");
+                navigate("/login")
 
             }
             else {
-                console.log("login failed")
+
+                console.log("password updation failed")
             }
         }
     }
@@ -59,7 +51,7 @@ function Login() {
                     <MDBCard className='bg-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '500px' }}>
                         <MDBCardBody className='p-5 w-100 d-flex flex-column'>
 
-                            <h2 className="fw-bold mb-2 text-center">Sign in</h2>
+                            <h2 className="fw-bold mb-2 text-center">Update Password</h2>
 
 
                             <p className="text-white-50 mb-3">Please enter your login and password!</p>
@@ -93,13 +85,9 @@ function Login() {
 
 
 
-                            <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={loginUser}>Login</button>
+                            <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={updateUser}>UpdatePassword</button>
 
                            
-                            <Link to="/validateUser" className='small text-muted mb-3'>Forgot password?</Link>
-                            <p className="mb-2 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <Link to="/register" style={{ color: '#393f81' }}>Register here</Link></p>
-                            <p className="mb-3 pb-lg-2" style={{ color: '#393f81' }}>Login as an <Link to="/adminLogin" style={{ color: '#393f81' }}>Admin</Link></p>
-
                         </MDBCardBody>
                     </MDBCard>
 
@@ -112,6 +100,6 @@ function Login() {
     );
 }
 
-export default Login;
+export default ForgotPassword;
 
 

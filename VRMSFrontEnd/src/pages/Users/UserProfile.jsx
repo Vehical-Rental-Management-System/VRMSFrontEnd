@@ -1,8 +1,22 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
+import { logout } from "../../features/authSlice";
 
 
 function UserProfile(){
+    const dispatch = useDispatch()
+    const logoutUser= ()=>{
+        console.log("logout")
+    
+        sessionStorage.clear()
+        dispatch(logout())
+    
+      }
+
+
+
+
     return (
         <>
         <UncontrolledDropdown>
@@ -29,7 +43,7 @@ function UserProfile(){
                 <Link to="/myBooking">My Booking</Link>
                 </DropdownItem>
                 <DropdownItem>
-                <Link to="/logout">Logout</Link>
+                <Link to="/logout" onClick={logoutUser}>Logout</Link>
                 </DropdownItem>
             </DropdownMenu>
             </UncontrolledDropdown>

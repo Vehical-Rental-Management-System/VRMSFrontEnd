@@ -10,6 +10,7 @@ const CarItem = (props) => {
 
     var goToVehicleDetails =()=>{
         navigate('/cars/'+id);
+        sessionStorage.setItem("bookingAmount",props.selectedPlans* brand.pricingPerKm)
     }
 
 

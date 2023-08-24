@@ -13,7 +13,7 @@ const CarDetails = () => {
 
   const [vehicle, SetVehicle] = useState({id:0,vehicleNo:'',fuelType:'',passingYear:'',status:'', brand:{id:0,brandName:'',pricingPerKm:0},
                                             type:{id:0,type:''}});
-
+    const bookingAmount = sessionStorage.getItem("bookingAmount")
 
   useEffect(() => {
 
@@ -52,7 +52,7 @@ const CarDetails = () => {
 
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                   <h6 className="rent__price fw-bold fs-4">
-                    &#8377;{vehicle.brand.pricingPerKm}.00
+                    &#8377;{bookingAmount}.00
                   </h6>
 
                   <span className=" d-flex align-items-center gap-2">
@@ -131,7 +131,7 @@ const CarDetails = () => {
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
                 <h5 className="mb-4 fw-bold ">Booking Information</h5>
-                <BookingForm />
+                <BookingForm bookingAmount={bookingAmount} />
               </div>
             </Col>
 

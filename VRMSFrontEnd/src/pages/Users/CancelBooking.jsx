@@ -8,28 +8,31 @@ import {
   MDBCardBody,
   MDBInput,
   MDBIcon,
-  MDBCheckbox
+  MDBCheckbox,
+  MDBTextArea
 }
 from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function ChangePassword() {
+function CancelBooking() {
 
-  const id = sessionStorage.getItem("uid");
+  const bookingId = sessionStorage.getItem("bookingId");
 
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [reason, setReason] = useState('');
 const navigate = useNavigate()
-  const changePasswordHandler = ()=>{
+  const cancelBookingHandler = ()=>{
 
-    const passwordObj = { id, oldPassword, newPassword}
+    const cancelBookingObj = { bookingId, reason}
     // validation remaining
-    axios.post("http://localhost:7070/user/changePassword",passwordObj)
+    axios.delete("http://localhost:7070/booking/cancel_booking",{
+        data: cancelBookingObj
+      })
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
-        navigate("/viewProfile")
+
+        navigate('/myBooking')
     })
     .catch(error => {
         // Handle error
@@ -46,19 +49,15 @@ const navigate = useNavigate()
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
             <MDBCardBody className='p-5 w-100 d-flex flex-column'>
 
-              <h2 className="fw-bold mb-2 text-center">Change Password</h2>
+              <h2 className="fw-bold mb-2 text-center">Reason For Cancellation</h2>
               <p className="text-white-50 mb-3">Please enter your required Information</p>
 
             
-              <MDBInput wrapperClass='mb-4 w-100' label='Enter Old Password' id='formControlLg' type='password' size="lg" onChange={(e) => {
-                                        setOldPassword(e.target.value)
+              <MDBTextArea wrapperClass='mb-4 w-100' label='Enter Reason' id='formControlLg' type='text-area' size="lg" onChange={(e) => {
+                                        setReason(e.target.value)
                                     }}/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Enter New Password' id='formControlLg' type='password' size="lg" onChange={(e) => {
-                                        setNewPassword(e.target.value)
-                                    }}/>
-              
             
-              <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={changePasswordHandler}>Update Password</button>
+              <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={cancelBookingHandler}>Confirm Cancel Booking</button>
 
 
             </MDBCardBody>
@@ -71,6 +70,6 @@ const navigate = useNavigate()
   );
 }
 
-export default ChangePassword;
+export default CancelBooking;
 
 

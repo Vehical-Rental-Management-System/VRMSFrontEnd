@@ -2,8 +2,9 @@ import LoginHeader from "./components/UI/LoginHeader";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import CarListing from "./pages/CarListing";
@@ -33,6 +34,13 @@ import WebsiteFeedback from "./pages/WebsiteFeedback"
 import ServiceLocations from "./pages/ServiceLocation"
 import AddServiceLocation from "./pages/AddServiceLocation"
 import AddVehicle from "./pages/AddVehicle"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { login, roleAdmin, roleCustomer } from "./features/authSlice";
+import AdminLogin from "./pages/AdminLogin";
+import CancelBooking from "./pages/Users/CancelBooking";
+import ValidateUser from "./pages/ValidateUser";
+import ForgotPassword from "./pages/ForgotPassword";
+
 
 
 
@@ -46,10 +54,19 @@ function App() {
 
     const role = useSelector((state) => state.auth.role)
 
+    const jwtText = sessionStorage.getItem("jwt")
+    const userRole = sessionStorage.getItem("role")
+    const dispatch = useDispatch()
+    if(jwtText && jwtText.length > 1){
+        dispatch(login())
+        if(userRole=="Admin") dispatch(roleAdmin())
+        else dispatch(roleCustomer())
+    }
+
   return (
     <>
       
-      { location.pathname=="/login" ?<LoginHeader></LoginHeader>: location.pathname=="/register" ? <LoginHeader></LoginHeader>:role=="Admin"?<></>:<Header /> }
+      { location.pathname=="/login" ?<LoginHeader></LoginHeader>: location.pathname=="/register" ? <LoginHeader></LoginHeader>:location.pathname=="/adminLogin" ?<LoginHeader></LoginHeader>:role=="Admin"?<></>:<Header /> }
       <div className='row'>
       {role=="Admin" &&  <div className='col-md-2'><SideBar menu={sidebar_menu} /></div>}
             
@@ -68,7 +85,11 @@ function App() {
                     <Route path="/changePassword" element={<ChangePassword />} />
                     <Route path="/myBooking" element={<MyBookings />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/validateUser" element={<ValidateUser />} />
+                    <Route path="/forgotPassword" element={<ForgotPassword />} />
                     <Route path="/logout" element={<Home />} />
+                    <Route path="/adminLogin" element={<AdminLogin />} />
+                    <Route path="/cancelBooking" element={<CancelBooking />} />
                     
                     <Route path="/register" element={<Register />} />
                     </Routes>
@@ -101,9 +122,9 @@ function App() {
                 </Routes>
             </div>
             </div>
-      { location.pathname=="/login" ?<></> :location.pathname=="/register" ? <></>:role=="Admin"?<></>:<Footer /> }
+      { location.pathname=="/login" ?<></> :location.pathname=="/register" ? <></>:location.pathname=="/adminLogin" ?<></>:role=="Admin"?<></>:<Footer /> }
+    <ToastContainer/>
     
-      <ToastContainer />
     </>
   );
 }
