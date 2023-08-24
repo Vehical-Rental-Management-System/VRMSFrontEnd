@@ -26,10 +26,14 @@ function Login() {
             toast.error('Please enter password')
         } else {
             // call register api
+
+            
+
             const response = await loginUserApi(email, password)
 
 
             if (response.jwt !== null) {
+                toast.success("Login successfull")
                 dispatch(login())
 
                 //    toast.success(`Welcome ${name} to store application`)
@@ -43,7 +47,7 @@ function Login() {
 
             }
             else {
-                console.log("login failed")
+                toast.error("login failed")
             }
         }
     }

@@ -30,7 +30,8 @@ function AdminLogin() {
             const response = await adminLoginUser(email, password)
 
 
-            if (response.jwt !== null) {
+            if (response !== null) {
+                toast.success("Admin Login successfull")
                 dispatch(login())
 
                 //    toast.success(`Welcome ${name} to store application`)
@@ -44,7 +45,7 @@ function AdminLogin() {
 
             }
             else {
-                console.log("login failed")
+                toast.error("login failed")
             }
         }
     }

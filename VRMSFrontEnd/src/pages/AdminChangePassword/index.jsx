@@ -1,6 +1,8 @@
 
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 function AdminChangePassword(){
@@ -9,9 +11,21 @@ function AdminChangePassword(){
     
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-
+const navigate = useNavigate()
   const changePasswordHandler = (e)=>{
     e.preventDefault();
+   
+    if (oldPassword.length == '') {
+        toast.error('Please enter old password')
+    }
+    else if (newPassword.length == '') {
+        toast.error('Please enter new password')
+    }
+   else  if (oldPassword == newPassword) {
+        toast.error('New password cannot be same as old')
+    } else{
+   
+
     const passwordObj = { id, oldPassword, newPassword}
     console.log(passwordObj);
     // validation remaining
@@ -19,13 +33,15 @@ function AdminChangePassword(){
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
-        
+        toast.success("Password changed successfully")
+        navigate("/Profile")
     })
     .catch(error => {
         // Handle error
         console.error('An error occurred:', error);
-        
+        toast.error("Password updation failed")
     });
+}
   }
 
     return (

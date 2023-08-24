@@ -13,6 +13,7 @@ import {
 from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function ChangePassword() {
 
@@ -22,19 +23,27 @@ function ChangePassword() {
   const [newPassword, setNewPassword] = useState('');
 const navigate = useNavigate()
   const changePasswordHandler = ()=>{
-
+    if (oldPassword.length == '') {
+        toast.error('Please enter old password')
+    } else if (newPassword.length == '') {
+        toast.error('Please enter new password')
+    }
+    else{
     const passwordObj = { id, oldPassword, newPassword}
     // validation remaining
     axios.post("http://localhost:7070/user/changePassword",passwordObj)
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
+        toast.success("password changed succesfullly")
         navigate("/viewProfile")
     })
     .catch(error => {
         // Handle error
         console.error('An error occurred:', error);
+        toast.error("password changed failed")
     });
+}
   }
 
   return (

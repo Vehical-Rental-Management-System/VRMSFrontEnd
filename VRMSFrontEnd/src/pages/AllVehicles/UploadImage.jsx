@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { uploadImageApi } from '../../services/adminService';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function FileUploadForm(props) {
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const navigate = useNavigate();
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     
@@ -22,8 +24,8 @@ function FileUploadForm(props) {
     }
     const response = await uploadImageApi(props.vehicleId,imageFile)
 
-    if(response.status == 200) console.log("File Uploaded");
-    else console.log("File Not Uploaded");
+    if(response.status == 200){ toast.success("Image Uploaded"); navigate('/AllVehicles')}
+    else toast.error("Image Not Uploaded");
 
 };
 

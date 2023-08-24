@@ -24,6 +24,9 @@ function ServiceLocations () {
 
     const removeServiceLocation = async (id) => {
         const response = await deleteServiceLocation(id)
+        if(response != null){
+           toast.success('Vehicle removed successfully')
+        }
         loadAllServiceLocations()
     }
 

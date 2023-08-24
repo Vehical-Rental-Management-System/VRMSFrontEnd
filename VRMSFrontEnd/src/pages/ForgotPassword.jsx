@@ -29,13 +29,13 @@ function ForgotPassword() {
 
 
             if (response !== null) {
-                console.log("password updated succesfully");
+                toast.success("password updated succesfully");
                 navigate("/login")
 
             }
             else {
 
-                console.log("password updation failed")
+                toast.error("password updation failed")
             }
         }
     }

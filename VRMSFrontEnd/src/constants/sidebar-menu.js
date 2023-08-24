@@ -5,24 +5,17 @@ import UserIcon from '../assets/icons/user.svg';
 
 const sidebar_menu = [
     {
-        id: 1,
-        icon: DashboardIcon,
-        path: '/',
-        title: 'Summary',
-    },
-
-    {
         id: 2,
-        icon: ProductIcon,
-        path: '/AllVehicles',
-        title: 'All vehicles',
-    },
-
- {
-        id: 3,
         icon: UserIcon,
         path: '/Profile',
         title: 'My account',
+    }
+    ,
+    {
+        id: 12,
+        icon: DashboardIcon,
+        path: '/GetRevenue',
+        title: 'Revenue',
     },
     {
         id: 5,
@@ -30,6 +23,15 @@ const sidebar_menu = [
         path: '/Users',
         title: 'Users',
     },
+
+    {
+        id: 3,
+        icon: ProductIcon,
+        path: '/AllVehicles',
+        title: 'All vehicles',
+    },
+
+   
     {
         id: 6,
         icon: ProductIcon,
@@ -66,12 +68,6 @@ const sidebar_menu = [
         icon: ShippingIcon,
         path: '/WebsiteFeedback',
         title: 'Website Feedback',
-    },
-    {
-        id: 12,
-        icon: DashboardIcon,
-        path: '/GetRevenue',
-        title: 'Revenue',
     },
 ]
 

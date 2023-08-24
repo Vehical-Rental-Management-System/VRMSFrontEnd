@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
 
-import allServiceProviders from '../../constants/ServiceProviders';
 import { calculateRange, sliceData } from '../../utils/table-pagination';
 
 import { getAllVehicles, deleteVehicle } from '../../services/admin';
@@ -42,6 +41,10 @@ function AllVehicles() {
 
     const removeVehicle = async (id) => {
         const response = await deleteVehicle(id)
+
+        if(response!= null) toast.success("Vehicle removed successfully")
+        else toast.error("Vehicle can't be removed")
+
         loadVehicles()
     }
 
@@ -61,23 +64,7 @@ function AllVehicles() {
         setAllVehicles(sliceData(myAllVehicles, page, 5));
     }, []);
 
-    // Search
-    const __handleSearch = (event) => {
-        setSearch(event.target.value);
-        if (event.target.value !== '') {
-            //let search_results = ServiceProviders.filter((item) =>
-            let search_results = myAllVehicles.filter((item) =>
-                item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-                item.last_name.toLowerCase().includes(search.toLowerCase()) ||
-                item.product.toLowerCase().includes(search.toLowerCase())
-            );
-            //setServiceProviders(search_results);
-            setAllVehicles(search_results);
-        }
-        else {
-            __handleChangePage(1);
-        }
-    };
+    
 
     // Change Page 
     const __handleChangePage = (new_page) => {
@@ -94,20 +81,13 @@ function AllVehicles() {
             <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
                     <h2>Vehicles List</h2>
-                    <div className='dashboard-content-search'>
-                        <input
-                            type='text'
-                            value={search}
-                            placeholder='Search..'
-                            className='dashboard-content-input'
-                            onChange={e => __handleSearch(e)} />
-                    </div>
+                  
                 </div>
 
                 <table>
                     <thead>
                         <th>Vehicle No</th>
-                        <th>Fuel Tyoe</th>
+                        <th>Fuel Type</th>
                         <th>Passing Year</th>
                         <th>Type</th>
                         <th>Brand</th>

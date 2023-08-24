@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { getAllServiceLocations, updateVehicle } from '../../services/admin';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 function UpdateVehicle(){
 
    
@@ -33,9 +34,18 @@ function UpdateVehicle(){
 
     const sendUpdatedVehicle= async(e)=>{
         e.preventDefault();
+        if (fuel.length == '') {
+            toast.error('Please enter fuel type')
+        } else{
+        
         const response= await updateVehicle(vehicleId,fuel,locId)
-        navigate("/AllVehicles")
-        return response
+
+        if(response.status == 200) {toast.success("Vehicle updated successfully")
+        navigate("/AllVehicles")}
+        else toast.error("Vehicle updation failed..") 
+
+        }
+        
         
     }
 
