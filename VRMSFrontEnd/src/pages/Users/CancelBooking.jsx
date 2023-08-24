@@ -14,6 +14,7 @@ import {
 from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function CancelBooking() {
 
@@ -22,7 +23,9 @@ function CancelBooking() {
   const [reason, setReason] = useState('');
 const navigate = useNavigate()
   const cancelBookingHandler = ()=>{
-
+    if (reason.length == '') {
+        toast.error('Please enter Reason')
+    } else {
     const cancelBookingObj = { bookingId, reason}
     // validation remaining
     axios.delete("http://localhost:7070/booking/cancel_booking",{
@@ -30,14 +33,15 @@ const navigate = useNavigate()
       })
     .then(response => {
         // Handle successful response
-        console.log('Response data:', response.data);
+        toast.success("Booking cancelled");
 
         navigate('/myBooking')
     })
     .catch(error => {
         // Handle error
-        console.error('An error occurred:', error);
+        toast.error('Booking not cancelled');
     });
+}
   }
 
   return (

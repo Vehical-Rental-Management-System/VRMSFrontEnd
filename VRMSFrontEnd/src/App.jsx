@@ -40,6 +40,7 @@ import AdminLogin from "./pages/AdminLogin";
 import CancelBooking from "./pages/Users/CancelBooking";
 import ValidateUser from "./pages/ValidateUser";
 import ForgotPassword from "./pages/ForgotPassword";
+import GetRevenue from "./pages/GetRevenue";
 
 
 
@@ -80,7 +81,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/payment" element={<PaymentForm />} />
                     <Route path="/updateprofile" element={<UpdateProfile />} />
-                    <Route path="/UpdateVehicle" element={<UpdateVehicle />} />
+                  
                     <Route path="/viewProfile" element={<ViewProfile />} />
                     <Route path="/changePassword" element={<ChangePassword />} />
                     <Route path="/myBooking" element={<MyBookings />} />
@@ -111,7 +112,8 @@ function App() {
                         <Route path ="/AddServiceLocation" element = {<AddServiceLocation/>}/>
                         <Route path ="/AddVehicle" element = {<AddVehicle/>}/>
                         <Route path ="/WebsiteFeedback" element = {<WebsiteFeedback/>}/>
-                        
+                        <Route path="/UpdateVehicle" element={<UpdateVehicle />} />
+                        <Route path="/GetRevenue" element={< GetRevenue/>} />
                         
 
                         {/* <Route exact path="/addServiceProvider" element={ <addServiceProvider /> }/> */}

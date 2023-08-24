@@ -13,6 +13,7 @@ import {
 from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function UpdateProfile() {
 
@@ -52,18 +53,37 @@ function UpdateProfile() {
 
   const updateUserProfileHandler = ()=>{
 
+    if (firstName.length == '') {
+        toast.error('Please enter first name')
+      } else if (lastName.length == '') {
+        toast.error('Please enter last name')
+      } else if (email.length == '') {
+        toast.error('Please enter email')
+      } else if (mobileNo.length == '') {
+        toast.error('Please enter mobile')
+      }  else if (age.length == '') {
+        toast.error('Please confirm password')
+      }else if (aadharNo.length == '') {
+        toast.error('Please confirm password')
+      }else if (licenseNo.length == '') {
+        toast.error('Please confirm password')
+      }else {
+
     const user = { id,firstName, lastName,email,age,mobileNo,aadharNo,licenseNo}
 
     axios.put("http://localhost:7070/user/updateProfile",user)
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
+        toast.success("Profile Updated Successfully")
         navigate("/viewProfile")
     })
     .catch(error => {
         // Handle error
+        toast.error("Profile Updation failed")
         console.error('An error occurred:', error);
     });
+}
   }
 
   return (

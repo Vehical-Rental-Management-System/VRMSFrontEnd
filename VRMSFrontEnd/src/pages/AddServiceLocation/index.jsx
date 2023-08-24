@@ -24,14 +24,21 @@ function AddServiceLocation() {
   
     const addServiceLocation = async () => {
       if (adrLine1.length == '') {
-        toast.error('Please enter Address')
-      } else {
+        toast.error('Please enter address')
+      } 
+     else if (city.length == '') {
+        toast.error('Please enter city')
+      } 
+     else  if(zipCode.length == '') {
+        toast.error('Please enter zip code')
+      } 
+      else {
         const response = await addServiceLocationApi(
             adrLine1,
             adrLine2,
             city,'Maharashtra','India',zipCode
         )
-        
+        toast.success('Service location added successfully')
        navigate('/ServiceLocations')
         console.log(response);
       }

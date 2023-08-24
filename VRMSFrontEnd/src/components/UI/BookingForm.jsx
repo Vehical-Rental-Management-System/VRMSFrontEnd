@@ -3,6 +3,7 @@ import "../../styles/booking-form.css";
 import { Form, FormGroup } from "reactstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const BookingForm = (props) => {
 
@@ -18,31 +19,37 @@ const BookingForm = (props) => {
     const addBookingHandler = (e)=>{
       e.preventDefault();
 
-      const bookingData = {
-        amount: parseInt(props.bookingAmount),
-        startDate: bookingState.startdate,
-        endDate: bookingState.enddate,
-        extraCharge: 0.0,
-        totalAmount: bookingState.Amount,
-        vehicleId : parseInt(id)
-      };
-      console.log(userId);
-
-      axios.post('http://localhost:7070/booking/addbooking/'+userId,bookingData)
-      .then(response => {
-          // Handle successful response
-          console.log('Response data:', response.data);
-          console.log(response.data)
-
-          sessionStorage.setItem("bookingId",response.data.id)
-
-          navigate("/payment");
-          
-      })
-      .catch(error => {
-          // Handle error
-          console.error('An error occurred:', error);
-      });
+      if(userId== undefined){
+            toast.error("Please log in before booking the vehicle")
+            navigate("/login")
+      }
+      else{
+        const bookingData = {
+            amount: parseInt(props.bookingAmount),
+            startDate: bookingState.startdate,
+            endDate: bookingState.enddate,
+            extraCharge: 0.0,
+            totalAmount: bookingState.Amount,
+            vehicleId : parseInt(id)
+          };
+          console.log(userId);
+    
+          axios.post('http://localhost:7070/booking/addbooking/'+userId,bookingData)
+          .then(response => {
+              // Handle successful response
+              console.log('Response data:', response.data);
+              console.log(response.data)
+    
+              sessionStorage.setItem("bookingId",response.data.id)
+    
+              navigate("/payment");
+              
+          })
+          .catch(error => {
+              // Handle error
+              console.error('An error occurred:', error);
+          });
+      }
     }
 
  

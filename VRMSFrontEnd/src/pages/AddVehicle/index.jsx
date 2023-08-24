@@ -58,8 +58,13 @@ function AddVehicle() {
         const response = await addVehicleApi(
           vehicleNo,fuelType,passingYear,typeId,brandId,serviceLocationId
         )
+        if(response!=null){
+            toast.success("Vehicle added successfully")
         
         navigate('/AllVehicles');
+          
+    }
+    else toast.error("Vehicle can't be added")
         console.log(response);
       }
     }
@@ -68,6 +73,7 @@ function AddVehicle() {
       const response = await getAllVehicleBrands()
 
       setBrand(response)
+      setBrandId(response[0].id)
       console.log(response)
   }
 
@@ -75,6 +81,7 @@ function AddVehicle() {
       const response = await getAllVehicleTypes()
 
       setType(response)
+      setTypeId(response[0].id)
       console.log(response)
   }
 
@@ -82,6 +89,7 @@ function AddVehicle() {
     const response = await getServiceLocations()
 
     setServiceLocation(response.data)
+    setServiceLocationId(response.data[0].id)
     console.log(response.data)
 }
 

@@ -4,6 +4,7 @@ import "../../styles/find-car-form.css";
 import { Form, FormGroup } from "reactstrap";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getAllServiceLocation } from "../../services/user";
+import { toast } from "react-toastify";
 
 const FindCarForm = () => {
     const navigate = useNavigate();
@@ -13,14 +14,31 @@ const FindCarForm = () => {
     const [endDate,setEndDate] = useState("")
     const [locationId,setLocationId] = useState("")
     
-    var searchCar = () => {
+    var searchCar = (e) => {
+        e.preventDefault()
 
+
+        if (startDate.length == '') {
+            toast.error('Please enter start date')
+        } else if (endDate.length == '') {
+            toast.error('Please enter end date')
+        }
+        else if (Math.ceil(new Date(startDate) - new Date()) / (1000 * 60 * 60 * 24)<-1) {
+            
+            toast.error('Start date should be on or after ')
+        }
+        else if (Math.ceil(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)<=0) {
+            toast.error('End date should be after start date ')
+        }
+        else {
+            
         sessionStorage.setItem("locationId",locationId)
         sessionStorage.setItem("startDate",startDate)
         sessionStorage.setItem("endDate",endDate)
         
 
         navigate('/cars');
+        }
     }
 
     useEffect(()=>{
@@ -65,7 +83,7 @@ const FindCarForm = () => {
                         <label htmlFor=''>Start Date</label>
                         <input type="date" placeholder="start date" onChange={(e) => {
                                         setStartDate(e.target.value)
-                                    }} required />
+                                    }} />
                     </div>
                 </FormGroup>
 
@@ -76,7 +94,7 @@ const FindCarForm = () => {
                         onChange={(e) => {
                             setEndDate(e.target.value)
                         }}
-                        required />
+                         />
                     </div>
                 </FormGroup>
 
