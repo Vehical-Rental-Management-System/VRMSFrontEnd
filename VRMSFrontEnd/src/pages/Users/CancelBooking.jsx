@@ -13,13 +13,14 @@ import {
 }
 from 'mdb-react-ui-kit';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CancelBooking() {
 
   const bookingId = sessionStorage.getItem("bookingId");
 
   const [reason, setReason] = useState('');
-
+const navigate = useNavigate()
   const cancelBookingHandler = ()=>{
 
     const cancelBookingObj = { bookingId, reason}
@@ -30,6 +31,8 @@ function CancelBooking() {
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
+
+        navigate('/myBooking')
     })
     .catch(error => {
         // Handle error

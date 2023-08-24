@@ -30,6 +30,12 @@ function MyBookings() {
         navigate('/cancelBooking');
     }
 
+    const handlePayBooking = (bookingId,bookingAmount)=>{
+        sessionStorage.setItem('bookingId',bookingId);
+        sessionStorage.setItem("bookingAmount",bookingAmount)
+        navigate('/payment');
+    }
+
     return (
 
 
@@ -42,21 +48,22 @@ function MyBookings() {
 
                     <MDBCard className='bg-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '90%' }}>
                         <MDBCardBody className='p-5 w-100 d-flex flex-column'>
+                        
+                        <h3 className="fw-bold mb-5 text-center">My Bookings</h3>
+                        
                         <table className="table table-hover" >
-                    <thead>
+                   
                         <tr>
-                        <th scope="col">Booking Id</th>
-                        <th scope="col">Book Date</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Extra Charge</th>
-                        <th scope="col">Total Amount</th>
-                        <th scope="col">Booking Status</th>
-                        <th scope="col"></th>
+                        <td scope="col">Booking Id</td>
+                        <td scope="col">Book Date</td>
+                        <td scope="col">Start Date</td>
+                        <td scope="col">End Date</td>
+                        <td scope="col">Amount</td>
+                        
+                        <td scope="col">Booking Status</td>
+                        <td scope="col"></td>
                         </tr>
-                    </thead>
-                    <tbody>
+                   
                         {bookings.map(booking =>
                         <tr key={booking.id}>
 
@@ -65,13 +72,21 @@ function MyBookings() {
                         <td>{booking.startDate}</td>
                         <td>{booking.endDate}</td>
                         <td>{booking.amount}</td>
-                        <td>{booking.extraCharge}</td>
-                        <td>{booking.totalAmount}</td>
+                        
                         <td>{booking.status}</td>
+                        {booking.status=="Successfull"
+                        ?
                         <td><button className="btn btn-danger" onClick={()=>{handleCancelBooking(booking.id)}}>Cancel Booking</button></td>
+                        :
+                        <td><button className="btn btn-primary" onClick={()=>{handlePayBooking(booking.id,booking.amount)}} >Pay Now Here</button></td>
+                        
+                        
+                    
+                    }
+                        
                         </tr>
                         )}
-                    </tbody>
+                 
                     </table>
                            
                         </MDBCardBody>

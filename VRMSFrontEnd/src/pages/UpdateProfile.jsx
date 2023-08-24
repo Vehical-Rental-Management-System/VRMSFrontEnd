@@ -12,6 +12,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function UpdateProfile() {
 
@@ -24,7 +25,7 @@ function UpdateProfile() {
   const [ mobileNo , setMobileNo ] = useState('');
   const [ aadharNo , setAadharNo ] = useState('');
   const [ licenseNo , setLicenseNo ] = useState('');
- 
+ const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -39,6 +40,7 @@ function UpdateProfile() {
           setMobileNo(response.data.mobileNo);  
           setAadharNo(response.data.aadharNo);  
           setLicenseNo(response.data.licenseNo)
+
       })
       .catch(error => {
           // Handle error
@@ -56,6 +58,7 @@ function UpdateProfile() {
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
+        navigate("/viewProfile")
     })
     .catch(error => {
         // Handle error
