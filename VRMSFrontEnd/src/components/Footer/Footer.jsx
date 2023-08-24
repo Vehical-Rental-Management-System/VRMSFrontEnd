@@ -65,7 +65,7 @@ const Footer = () => {
 
           <Col lg="3" md="4" sm="12">
             <div className="mb-4">
-              <h5 className="footer__link-title">Become a Member</h5>
+              <h5 className="footer__link-title">Contact Us</h5>
               <div className="newsletter">
                 <input type="email" placeholder="Email" value="admin@rentandride.com" readOnly/>
               </div>

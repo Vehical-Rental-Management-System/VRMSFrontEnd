@@ -1,14 +1,55 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, FormGroup, Input } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 
 import "../styles/contact.css";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 
 
 const Contact = () => {
+
+ 
+
+    const [name , setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message , setMessage] = useState('');
+  
+    const navigate = useNavigate()
+  
+    const addFeedBackHandler = (e)=>{
+        e.preventDefault()
+      if (name.length == '') {
+          toast.error('Please enter name')
+      }
+      else if (email.length == '') {
+          toast.error('Please enter email')
+      } 
+      else if (message.length == '') {
+        toast.error('Please enter message')
+    } 
+      else {
+      const addFeedbackObj = { customerName : name,email,feedbackMsg: message}
+      console.log(addFeedbackObj);
+      
+      axios.post("http://localhost:7070/feedback/addFeedback",addFeedbackObj)
+      .then(response => {
+         
+          console.log('Response data:', response.data);
+          toast.success('Feedback added successfully')
+          navigate('/')
+      })
+      .catch(error => {
+          toast.error("Feedback can't be added")
+          console.error('An error occurred:', error);
+          
+      });}
+    }
+
+
   return (
     <Helmet title="Contact">
       <CommonSection title="Contact" />
@@ -20,20 +61,33 @@ const Contact = () => {
 
               <Form>
                 <FormGroup className="contact__form">
-                  <Input placeholder="Your Name" type="text" />
+                  <Input placeholder="Your Name" type="text" 
+                  onChange={(e) => {
+                    setName(e.target.value)
+                }}
+                  />
                 </FormGroup>
                 <FormGroup className="contact__form">
-                  <Input placeholder="Email" type="email" />
+                  <Input placeholder="Email" type="email" 
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                }}
+                  />
                 </FormGroup>
                 <FormGroup className="contact__form">
                   <textarea
                     rows="5"
                     placeholder="Message"
                     className="textarea"
+
+                    onChange={(e) => {
+                        setMessage(e.target.value)
+                    }}
+
                   ></textarea>
                 </FormGroup>
 
-                <button className=" contact__btn" type="submit">
+                <button className=" contact__btn" type="submit" onClick={addFeedBackHandler}>
                   Send Message
                 </button>
               </Form>
