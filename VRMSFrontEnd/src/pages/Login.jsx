@@ -32,7 +32,7 @@ function Login() {
             const response = await loginUserApi(email, password)
 
 
-            if (response.jwt !== null) {
+            if (response !== null) {
                 toast.success("Login successfull")
                 dispatch(login())
 
