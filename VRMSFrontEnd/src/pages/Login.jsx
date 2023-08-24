@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { login } from '../features/authSlice';
+import { login, roleCustomer } from '../features/authSlice';
 import { loginUser as loginUserApi } from '../services/user';
 import '../styles/Login.css';
 function Login() {
@@ -37,7 +37,8 @@ function Login() {
                 sessionStorage.setItem("jwt", response.jwt)
                 sessionStorage.setItem("uid",response.userId)
                 sessionStorage.setItem("uName",response.userName)
-
+                sessionStorage.setItem("role","Customer")
+                dispatch(roleCustomer())
                 navigate("/")
 
             }
@@ -87,14 +88,15 @@ function Login() {
                                 />
                             </div>
 
-                            <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
+                            {/* <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' /> */}
 
 
 
 
                             <button className="LoginRegisterButton text-white btn-lg mb-3" onClick={loginUser}>Login</button>
 
-                            <a className="small text-muted mb-3" href="#!">Forgot password?</a>
+                           
+                            <Link to="/validateUser" className='small text-muted mb-3'>Forgot password?</Link>
                             <p className="mb-2 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <Link to="/register" style={{ color: '#393f81' }}>Register here</Link></p>
                             <p className="mb-3 pb-lg-2" style={{ color: '#393f81' }}>Login as an <Link to="/adminLogin" style={{ color: '#393f81' }}>Admin</Link></p>
 
