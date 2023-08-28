@@ -15,7 +15,7 @@ from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { createUrl, log } from '../../utils/utils'
 function CancelBooking() {
 
   const bookingId = sessionStorage.getItem("bookingId");
@@ -28,7 +28,7 @@ const navigate = useNavigate()
     } else {
     const cancelBookingObj = { bookingId, reason}
     // validation remaining
-    axios.delete("http://localhost:7070/booking/cancel_booking",{
+    axios.delete(createUrl('/booking/cancel_booking'),{
         data: cancelBookingObj
       })
     .then(response => {

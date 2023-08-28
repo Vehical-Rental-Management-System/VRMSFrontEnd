@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import carData from "../assets/data/carData";
-import { Container, Row, Col } from "reactstrap";
-import Helmet from "../components/Helmet/Helmet";
-import { useParams } from "react-router-dom";
-import BookingForm from "../components/UI/BookingForm";
-import PaymentMethod from "../components/UI/PaymentMethod";
 import axios from "axios";
-
+import { useParams } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
+import Helmet from "../components/Helmet/Helmet";
+import BookingForm from "../components/UI/BookingForm";
+import { createUrl } from '../utils/utils';
 const CarDetails = () => {
   const { id } = useParams();
 
@@ -17,7 +15,7 @@ const CarDetails = () => {
 
   useEffect(() => {
 
-      axios.get("http://localhost:7070/vehicles/"+id)
+      axios.get(createUrl('/vehicles/'+id))
           .then(response => {
               // Handle successful response
               console.log('Response data:', response.data);
@@ -43,9 +41,10 @@ const CarDetails = () => {
         <Container>
           <Row>
             <Col lg="6">
-              <img src={"http://localhost:7070/vehicles/images/"+vehicle.id} alt="" className="w-100"/>
+              <img src={createUrl('/vehicles/images/'+vehicle.id)} alt="" className="w-100"/>
+              
             </Col>
-
+            
             <Col lg="6">
               <div className="car__info">
                 <h2 className="section__title">{vehicle.brand.brandName}</h2>

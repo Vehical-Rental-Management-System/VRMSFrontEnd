@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { createUrl, log } from '../../utils/utils'
 function Profile() {
 
     const navigate= useNavigate();
@@ -21,7 +21,7 @@ function Profile() {
  }
  
   useEffect(() => {
-    axios.get("http://localhost:7070/admin/"+id)
+    axios.get(createUrl('/admin/'+id))
       .then(response => {
           // Handle successful response
           console.log('Response data:', response.data);

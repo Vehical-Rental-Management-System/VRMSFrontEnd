@@ -4,7 +4,7 @@ import { Form, FormGroup } from "reactstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { createUrl, log } from '../../utils/utils'
 const BookingForm = (props) => {
 
     const { id } = useParams();
@@ -34,7 +34,7 @@ const BookingForm = (props) => {
           };
           console.log(userId);
     
-          axios.post('http://localhost:7070/booking/addbooking/'+userId,bookingData)
+          axios.post(createUrl('/booking/addbooking/'+userId),bookingData)
           .then(response => {
               // Handle successful response
               console.log('Response data:', response.data);

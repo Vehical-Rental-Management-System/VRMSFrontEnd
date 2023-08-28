@@ -14,7 +14,7 @@ from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { createUrl, log } from '../utils/utils'
 function UpdateProfile() {
 
   const id = sessionStorage.getItem("uid");
@@ -30,7 +30,7 @@ function UpdateProfile() {
 
 
   useEffect(() => {
-    axios.get("http://localhost:7070/user/"+id)
+    axios.get(createUrl('/user/'+id))
       .then(response => {
           // Handle successful response
           console.log('Response data:', response.data);
@@ -71,7 +71,7 @@ function UpdateProfile() {
 
     const user = { id,firstName, lastName,email,age,mobileNo,aadharNo,licenseNo}
 
-    axios.put("http://localhost:7070/user/updateProfile",user)
+    axios.put(createUrl('/user/updateProfile'),user)
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
