@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { login, roleCustomer } from '../features/authSlice';
 import { forgotPasswordApi, loginUser as loginUserApi } from '../services/user';
 import '../styles/Login.css';
+
 function ForgotPassword() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

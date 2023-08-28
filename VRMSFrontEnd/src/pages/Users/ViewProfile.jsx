@@ -12,7 +12,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import axios from 'axios';
-
+import { createUrl, log } from '../../utils/utils'
 function ViewProfile() {
 
   const id = sessionStorage.getItem("uid");
@@ -27,7 +27,7 @@ function ViewProfile() {
 
 
   useEffect(() => {
-    axios.get("http://localhost:7070/user/"+id)
+    axios.get(createUrl('/user/'+id))
       .then(response => {
           // Handle successful response
           console.log('Response data:', response.data);

@@ -5,7 +5,7 @@ import { createUrl, log } from '../utils/utils'
 
 export async function getAllUsers() {
     try {
-      const url='http://localhost:7070/user/getAllUsers'
+      const url=createUrl('/user/getAllUsers')
   
       const response = await axios.get(url)
       log(response)
@@ -21,7 +21,7 @@ export async function getAllUsers() {
 
   export async function getAllVehicles() {
     try {
-      const url='http://localhost:7070/vehicles/all'
+      const url=createUrl('/vehicles/all')
   
       const response = await axios.get(url)
       log(response)
@@ -37,7 +37,7 @@ export async function getAllUsers() {
 
   export async function getReservedVehicles() {
     try {
-      const url='http://localhost:7070/vehicles/reserved_vehicles'
+      const url=createUrl('/vehicles/reserved_vehicles')
   
       const response = await axios.get(url)
       log(response)
@@ -51,7 +51,7 @@ export async function getAllUsers() {
 
   export async function getAvailableVehicles() {
     try {
-      const url='http://localhost:7070/vehicles/available_vehicles'
+      const url=createUrl('/vehicles/available_vehicles')
   
       const response = await axios.get(url)
       log(response)
@@ -66,7 +66,7 @@ export async function getAllUsers() {
 
 export async function addVehicle(vehicleNo, fuelType, passingYear, typeId, brandId, serviceLocationId) {
     
-    const url='http://localhost:7070/vehicles'
+    const url=createUrl('/vehicles')
   
     const body = {
         vehicleNo, fuelType, passingYear, typeId, brandId, serviceLocationId,
@@ -86,7 +86,7 @@ export async function addVehicle(vehicleNo, fuelType, passingYear, typeId, brand
 
 export async function updateVehicle(id, fuelType, serviceLocationId) {
     
-    const url='http://localhost:7070/vehicles'
+    const url=createUrl('/vehicles')
   
     const body = {
         id, fuelType, serviceLocationId,
@@ -107,7 +107,7 @@ export async function updateVehicle(id, fuelType, serviceLocationId) {
 
 export async function deleteVehicle(id) {
   try {
-    const url=`http://localhost:7070/vehicles/${id}`
+    const url=createUrl('/vehicles/'+id)
 
     const response = await axios.delete(url)
     log(response)
@@ -121,7 +121,7 @@ export async function deleteVehicle(id) {
 
   export async function getAllBookings(year) {
     try {
-      const url='http://localhost:7070/booking/allbookings'
+      const url=createUrl('/booking/allbookings')
   
       const response = await axios.post(url,year)
       log(response)
@@ -135,7 +135,7 @@ export async function deleteVehicle(id) {
 
   export async function getAllBookingsWithFeedback() {
     try {
-      const url='http://localhost:7070/booking/allbookingswithfeedback'
+      const url=createUrl('/booking/allbookingswithfeedback')
   
       const response = await axios.get(url)
       log(response)
@@ -150,7 +150,7 @@ export async function deleteVehicle(id) {
 
   export async function getYearlyRevenue(year) {
     try {
-      const url=`http://localhost:7070/booking/yearly_revenue/${year}`
+      const url=createUrl('/booking/yearly_revenue/'+year)
   
       const response = await axios.get(url)
       log(response)
@@ -166,7 +166,7 @@ export async function deleteVehicle(id) {
 
   export async function getAllServiceLocations() {
     try {
-      const url='http://localhost:7070/service_location'
+      const url=createUrl('/service_location')
   
       const response = await axios.get(url)
       log(response)
@@ -182,7 +182,7 @@ export async function deleteVehicle(id) {
 export async function addServiceLocation(adrLine1, adrLine2, city, state, country, zipCode)
      {
        
-    const url='http://localhost:7070/service_location'
+    const url=createUrl('/service_location')
   
     const body = {
       adrLine1, adrLine2, city, state, country, zipCode,
@@ -203,7 +203,7 @@ export async function addServiceLocation(adrLine1, adrLine2, city, state, countr
 
 export async function deleteServiceLocation(id) {
     try {
-      const url=`http://localhost:7070/service_location/${id}`
+      const url=createUrl('/service_location/'+id)
   
       const response = await axios.delete(url)
       log(response)
@@ -217,7 +217,7 @@ export async function deleteServiceLocation(id) {
 
 // export async function ChangePassword(email,password) {
     
-//     const url='http://localhost:7070/admin/updatePassword'
+//     const url=createUrl('/admin/updatePassword'
   
 //     const body = {
 //       email,

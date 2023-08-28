@@ -16,7 +16,7 @@ from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { createUrl, log } from '../../utils/utils'
 function BookingFeedback() {
 
   const bookingId = sessionStorage.getItem("bookingId");
@@ -37,7 +37,7 @@ function BookingFeedback() {
     const addFeedbackObj = { bookingId, bookingFeedback, rating}
     console.log(addFeedbackObj);
     
-    axios.put("http://localhost:7070/booking/addfeedbacktobooking",addFeedbackObj)
+    axios.put(createUrl('/booking/addfeedbacktobooking'),addFeedbackObj)
     .then(response => {
        
         console.log('Response data:', response.data);
@@ -61,7 +61,7 @@ function BookingFeedback() {
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
             <MDBCardBody className='p-5 w-100 d-flex flex-column'>
 
-              <h2 className="fw-bold mb-2 text-center">Reason For Cancellation</h2>
+              <h2 className="fw-bold mb-2 text-center">Add Feedback</h2>
               <p className="text-white-50 mb-3">Please enter your required Information</p>
 
             

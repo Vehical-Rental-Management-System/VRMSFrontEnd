@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/car-item.css";
+import { createUrl, log } from '../../utils/utils'
 
 const CarItem = (props) => {
   const {id,imageFile, fuelType, brand, passingYear} = props.item;
@@ -43,7 +44,7 @@ const CarItem = (props) => {
     <Col lg="4" md="4" sm="6" className="mb-5">
       <div className="car__item">
         <div className="car__img">
-          <img src={"http://localhost:7070/vehicles/images/"+id} alt="" className="w-100 carImages" />
+          <img src={createUrl('/vehicles/images/'+id)} alt="" className="w-100 carImages" />
         </div>
 
         <div className="car__item-content mt-4">

@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import { Container, Row, Col } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Col, Container, Row } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
-import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
-import carData from "../assets/data/carData";
-import { useEffect } from "react";
-import axios from "axios";
+import CommonSection from "../components/UI/CommonSection";
 import { getAllVehicleBrands, getAllVehicleTypes, getAllVehiclesByServiceLocation } from "../services/user";
-
 
 const CarListing = () => {
 

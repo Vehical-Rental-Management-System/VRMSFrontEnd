@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { createUrl, log } from '../../utils/utils'
 
 function AdminChangePassword(){
 
@@ -29,7 +29,7 @@ const navigate = useNavigate()
     const passwordObj = { id, oldPassword, newPassword}
     console.log(passwordObj);
     // validation remaining
-    axios.post("http://localhost:7070/admin/updatePassword",passwordObj)
+    axios.post(createUrl('/admin/updatePassword'),passwordObj)
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);

@@ -7,7 +7,7 @@ import CommonSection from "../components/UI/CommonSection";
 import "../styles/contact.css";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { createUrl, log } from '../utils/utils'
 
 
 const Contact = () => {
@@ -35,7 +35,7 @@ const Contact = () => {
       const addFeedbackObj = { customerName : name,email,feedbackMsg: message}
       console.log(addFeedbackObj);
       
-      axios.post("http://localhost:7070/feedback/addFeedback",addFeedbackObj)
+      axios.post(createUrl('/feedback/addFeedback'),addFeedbackObj)
       .then(response => {
          
           console.log('Response data:', response.data);

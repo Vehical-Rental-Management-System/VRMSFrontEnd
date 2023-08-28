@@ -14,7 +14,7 @@ from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { createUrl, log } from '../../utils/utils'
 function ChangePassword() {
 
   const id = sessionStorage.getItem("uid");
@@ -31,7 +31,7 @@ const navigate = useNavigate()
     else{
     const passwordObj = { id, oldPassword, newPassword}
     // validation remaining
-    axios.post("http://localhost:7070/user/changePassword",passwordObj)
+    axios.post(createUrl('/user/changePassword'),passwordObj)
     .then(response => {
         // Handle successful response
         console.log('Response data:', response.data);
